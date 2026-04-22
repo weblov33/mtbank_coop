@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <title>MT Bank Games</title>
+        <link rel="stylesheet" href="index.css">
+        <script src="index.js" defer></script>
+    </head>
+    <body>
+        <main class="app-shell">
+            <section class="menu-screen" id="menuScreen">
+                <header class="top-bar">
+                    <div class="stat-card stat-card--xp">
+                        <div class="xp-badge">XP</div>
+                        <div>
+                            <p class="stat-value">3 250</p>
+                            <p class="stat-label">XP</p>
+                        </div>
+                    </div>
+
+                    <div class="lives-card">
+                        <div class="lives-icons" aria-hidden="true">
+                            <span>♡</span>
+                            <span>♡</span>
+                            <span>♡</span>
+                        </div>
+                        <p class="stat-label">Жизни</p>
+                    </div>
+
+                    <button class="friends-card" type="button" aria-label="Друзья">
+                        <span class="friends-icon" aria-hidden="true">◌◌</span>
+                        <span>Друзья</span>
+                    </button>
+                </header>
+
+                <section class="hero-panel">
+                    <div class="pet-portrait">
+                        <div class="pet-portrait__inner"></div>
+                    </div>
+                </section>
+
+                <section class="info-card">
+                    <div class="section-heading">
+                        <h2>Активность</h2>
+                        <span>60 / 100</span>
+                    </div>
+
+                    <div class="progress-row">
+                        <div class="progress-track">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <button class="info-button" type="button" aria-label="Информация">i</button>
+                    </div>
+                </section>
+
+                <section class="info-card games-card">
+                    <div class="section-heading">
+                        <h2>Мини-игры</h2>
+                        <span class="section-caption">Выбери игру</span>
+                    </div>
+
+                    <div class="games-grid" aria-label="Список мини-игр">
+                        <button class="game-option is-selected" type="button" data-game="doodlejump">
+                            <span class="game-option__icon" aria-hidden="true">DJ</span>
+                            <span class="game-option__title">Doodle Jump</span>
+                        </button>
+
+                        <button class="game-option" type="button" data-game="trexrunner">
+                            <span class="game-option__icon" aria-hidden="true">TR</span>
+                            <span class="game-option__title">T-rex Run</span>
+                        </button>
+
+                        <button class="game-option" type="button" data-game="flappybird">
+                            <span class="game-option__icon" aria-hidden="true">FB</span>
+                            <span class="game-option__title">Flappy Bird</span>
+                        </button>
+
+                        <button class="game-option" type="button" data-game="2048">
+                            <span class="game-option__icon game-option__icon--grid" aria-hidden="true">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                            <span class="game-option__title">2048</span>
+                        </button>
+                    </div>
+                </section>
+
+                <button class="play-button" type="button" id="playButton">
+                    <span class="play-button__icon" aria-hidden="true">▶</span>
+                    <span>Играть</span>
+                </button>
+            </section>
+
+            <section class="player-screen is-hidden" id="playerScreen">
+                <header class="player-topbar">
+                    <button class="back-button" type="button" id="backButton">Назад</button>
+                    <p class="player-title" id="gameTitle">Doodle Jump</p>
+                    <div class="player-topbar__spacer"></div>
+                </header>
+
+                <iframe
+                    id="gameFrame"
+                    class="game-frame"
+                    title="Game preview"
+                    src="./doodlejump/index.html"
+                    loading="eager">
+                </iframe>
+            </section>
+        </main>
+    </body>
+</html>

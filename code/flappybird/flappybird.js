@@ -49,7 +49,7 @@ class FlappyBirdGame {
         this.bindEvents();
         this.reset();
         this.render();
-        this.showOverlay("Ready", "");
+        this.showOverlay("Готовы", "Коснитесь экрана, чтобы взлететь.");
     }
 
     bindEvents() {
@@ -91,7 +91,7 @@ class FlappyBirdGame {
 
         document.addEventListener("visibilitychange", () => {
             if (document.hidden && this.gameStarted && !this.gameOver) {
-                this.finish("Game Over. Tap start to try again.");
+                this.finish("Игра окончена. Нажмите старт, чтобы попробовать снова.");
             }
         });
     }
@@ -131,7 +131,7 @@ class FlappyBirdGame {
         }
 
         this.render();
-        this.showOverlay("Ready", "");
+        this.showOverlay("Готовы", "Коснитесь экрана, чтобы взлететь.");
     }
 
     start() {
@@ -218,7 +218,7 @@ class FlappyBirdGame {
         this.bird.y = Math.max(this.bird.y + this.velocityY * deltaTime, 0);
 
         if (this.bird.y > BOARD_HEIGHT) {
-            this.finish("Game Over. Tap start to try again.");
+            this.finish("Игра окончена. Нажмите старт, чтобы попробовать снова.");
             return;
         }
 
@@ -231,7 +231,7 @@ class FlappyBirdGame {
             }
 
             if (this.detectCollision(this.bird, pipe)) {
-                this.finish("Game Over. Tap start to try again.");
+                this.finish("Игра окончена. Нажмите старт, чтобы попробовать снова.");
                 return;
             }
         }
@@ -250,7 +250,7 @@ class FlappyBirdGame {
         this.bestScore = Math.max(this.bestScore, Math.floor(this.score));
         this.saveBestScore();
         this.updateHud();
-        this.showOverlay("Game Over", message);
+        this.showOverlay("Игра окончена", message);
 
         if (this.pipeTimer) {
             clearInterval(this.pipeTimer);
@@ -281,7 +281,7 @@ class FlappyBirdGame {
         this.overlayTitle.textContent = title;
         this.overlayText.textContent = text;
         this.overlay.classList.remove("is-hidden");
-        this.startButton.textContent = this.gameOver ? "Play Again" : "Start";
+        this.startButton.textContent = this.gameOver ? "Играть снова" : "Старт";
     }
 
     hideOverlay() {
@@ -317,10 +317,6 @@ class FlappyBirdGame {
             this.bird.width,
             this.bird.height
         );
-
-        this.context.fillStyle = "#ffffff";
-        this.context.font = "32px Arial";
-        this.context.fillText(String(Math.floor(this.score)), 16, 40);
     }
 }
 

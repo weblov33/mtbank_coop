@@ -38,7 +38,7 @@ class FlappyBirdGame {
         this.birdSprite.addEventListener("load", rerender);
         this.pipeSprite.addEventListener("load", rerender);
 
-        this.birdSprite.src = "./flappybird.png";
+        this.birdSprite.src = "./flappy-mascot-flight.svg";
         this.pipeSprite.src = "./flappy-pipe.webp";
 
         this.animationFrame = null;

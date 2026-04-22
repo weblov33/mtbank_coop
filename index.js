@@ -1,19 +1,19 @@
 const games = {
     doodlejump: {
         title: "Doodle Jump",
-        url: "./doodlejump/index.html"
+        url: "./code/doodlejump/index.html"
     },
     trexrunner: {
         title: "T-rex Run",
-        url: "./trexrunner/index.html"
+        url: "./code/trexrunner/index.html"
     },
     flappybird: {
         title: "Flappy Bird",
-        url: "./flappybird/index.html"
+        url: "./code/flappybird/index.html"
     },
     "2048": {
         title: "2048",
-        url: "./2048/index.html"
+        url: "./code/2048/index.html"
     }
 };
 

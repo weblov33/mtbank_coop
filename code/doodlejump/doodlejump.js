@@ -1,15 +1,16 @@
 const BOARD_WIDTH = 360;
 const BOARD_HEIGHT = 576;
-const DOODLER_WIDTH = 46;
-const DOODLER_HEIGHT = 46;
-const PLATFORM_WIDTH = 60;
-const PLATFORM_HEIGHT = 18;
+const DOODLER_WIDTH = 68;
+const DOODLER_HEIGHT = 68;
+const PLATFORM_WIDTH = 78;
+const PLATFORM_HEIGHT = 28;
 const MOVE_SPEED = 4.8;
 const INITIAL_VELOCITY_Y = -10.5;
 const GRAVITY = 0.35;
 const PLATFORM_COUNT = 7;
 const STORAGE_KEY = "mtbank-doodlejump-best";
 const MAX_TILT = 18;
+const MISSION_TARGET = 1000;
 
 class DoodleJumpGame {
     constructor() {
@@ -17,9 +18,16 @@ class DoodleJumpGame {
         this.context = this.board.getContext("2d");
         this.overlay = document.getElementById("gameOverlay");
         this.scoreValue = document.getElementById("scoreValue");
-        this.bestScoreValue = document.getElementById("bestScoreValue");
+        this.lightningValue = document.getElementById("lightningValue");
+        this.progressFill = document.getElementById("progressFill");
+        this.progressValue = document.getElementById("progressValue");
+        this.overlayTitle = document.getElementById("overlayTitle");
+        this.overlayCopy = document.getElementById("overlayCopy");
+        this.overlayKicker = document.getElementById("overlayKicker");
         this.startButton = document.getElementById("startButton");
-        this.restartButton = document.getElementById("restartButton");
+        this.pauseButton = document.getElementById("pauseButton");
+        this.pauseIcon = document.getElementById("pauseIcon");
+        this.backButton = document.getElementById("backButton");
         this.deviceScale = Math.max(window.devicePixelRatio || 1, 1);
 
         this.setupCanvas();
@@ -34,7 +42,8 @@ class DoodleJumpGame {
         this.bestScore = this.loadBestScore();
         this.gameStarted = false;
         this.gameOver = false;
-        this.doodler = this.createDoodler(this.images.right);
+        this.paused = false;
+        this.doodler = this.createDoodler();
         this.worldOffset = 0;
         this.lastDoodlerBottom = 0;
         this.tiltEnabled = false;
@@ -48,29 +57,26 @@ class DoodleJumpGame {
     }
 
     loadImages() {
-        const right = new Image();
-        const left = new Image();
+        const mascot = new Image();
         const platform = new Image();
         const rerender = () => this.render();
 
-        right.addEventListener("load", rerender);
-        left.addEventListener("load", rerender);
+        mascot.addEventListener("load", rerender);
         platform.addEventListener("load", rerender);
 
-        right.src = "./doodler-right.png";
-        left.src = "./doodler-left.png";
-        platform.src = "./platform.png";
+        mascot.src = "./jumper-mascot.png";
+        platform.src = "./jumper-platform.webp";
 
-        return { right, left, platform };
+        return { mascot, platform };
     }
 
-    createDoodler(img) {
+    createDoodler() {
         return {
-            img,
             x: BOARD_WIDTH / 2 - DOODLER_WIDTH / 2,
             y: BOARD_HEIGHT * 7 / 8 - DOODLER_HEIGHT,
             width: DOODLER_WIDTH,
-            height: DOODLER_HEIGHT
+            height: DOODLER_HEIGHT,
+            facing: 1
         };
     }
 
@@ -85,19 +91,45 @@ class DoodleJumpGame {
             if (this.gameOver) {
                 this.reset();
             }
+            if (this.paused) {
+                this.resume();
+                return;
+            }
             await this.enableTiltIfNeeded();
             this.start();
         });
 
-        this.restartButton.addEventListener("click", async () => {
-            this.reset();
-            await this.enableTiltIfNeeded();
-            this.start();
+        this.pauseButton.addEventListener("click", async () => {
+            if (this.gameOver) {
+                this.reset();
+                await this.enableTiltIfNeeded();
+                this.start();
+                return;
+            }
+
+            if (!this.gameStarted) {
+                await this.enableTiltIfNeeded();
+                this.start();
+                return;
+            }
+
+            if (this.paused) {
+                this.resume();
+                return;
+            }
+
+            this.pause("Пауза", "Продолжите, когда будете готовы снова прыгать.");
+        });
+
+        this.backButton.addEventListener("click", () => {
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type: "mtbank:close-game" }, "*");
+            }
         });
 
         document.addEventListener("visibilitychange", () => {
-            if (document.hidden && this.gameStarted && !this.gameOver) {
-                this.finish("Paused. Tap start to jump back in.");
+            if (document.hidden && this.gameStarted && !this.gameOver && !this.paused) {
+                this.pause("Пауза", "Игра остановлена, пока экран был скрыт.");
             }
         });
 
@@ -117,7 +149,20 @@ class DoodleJumpGame {
                 if (this.gameOver) {
                     this.reset();
                 }
+                if (this.paused) {
+                    this.resume();
+                    return;
+                }
                 this.start();
+            }
+
+            if (event.code === "Escape" && this.gameStarted && !this.gameOver) {
+                event.preventDefault();
+                if (this.paused) {
+                    this.resume();
+                } else {
+                    this.pause("Пауза", "Продолжите, когда будете готовы снова прыгать.");
+                }
             }
         });
     }
@@ -162,33 +207,35 @@ class DoodleJumpGame {
         this.velocityX = normalizedTilt * MOVE_SPEED;
 
         if (this.velocityX > 0.2) {
-            this.doodler.img = this.images.right;
+            this.doodler.facing = 1;
         } else if (this.velocityX < -0.2) {
-            this.doodler.img = this.images.left;
+            this.doodler.facing = -1;
         }
     }
 
     start() {
-        if (this.gameStarted && !this.gameOver) {
+        if ((this.gameStarted && !this.gameOver) || this.paused) {
             return;
         }
 
         this.gameStarted = true;
         this.gameOver = false;
+        this.paused = false;
         this.lastFrameTime = performance.now();
-        this.hideOverlay();
+        this.hideOverlay(true);
         if (!this.animationFrame) {
             this.update(this.lastFrameTime);
         }
     }
 
     reset() {
-        this.doodler = this.createDoodler(this.images.right);
+        this.doodler = this.createDoodler();
         this.velocityX = 0;
         this.velocityY = INITIAL_VELOCITY_Y;
         this.score = 0;
         this.gameStarted = false;
         this.gameOver = false;
+        this.paused = false;
         this.platforms = [];
         this.worldOffset = 0;
         this.tiltGamma = 0;
@@ -202,7 +249,7 @@ class DoodleJumpGame {
         }
 
         this.render();
-        this.showOverlay();
+        this.showOverlay("Мини-игра", "Джампер", "Наберите 1000 очков и соберите молнии по пути.", "Играть");
     }
 
     placePlatforms() {
@@ -236,7 +283,7 @@ class DoodleJumpGame {
     }
 
     update(now) {
-        if (!this.gameStarted || this.gameOver) {
+        if (!this.gameStarted || this.gameOver || this.paused) {
             this.animationFrame = null;
             this.render();
             return;
@@ -301,19 +348,46 @@ class DoodleJumpGame {
         this.updateHud();
     }
 
+    pause(title, message) {
+        this.paused = true;
+        this.gameStarted = false;
+        this.velocityX = 0;
+        this.showOverlay("Пауза", title, message, "Продолжить");
+        this.updateHud();
+    }
+
+    resume() {
+        if (!this.paused || this.gameOver) {
+            return;
+        }
+
+        this.paused = false;
+        this.gameStarted = true;
+        this.lastFrameTime = performance.now();
+        this.hideOverlay(true);
+        if (!this.animationFrame) {
+            this.update(this.lastFrameTime);
+        }
+    }
+
     finish(message) {
         this.gameOver = true;
         this.gameStarted = false;
+        this.paused = false;
         this.velocityX = 0;
         this.bestScore = Math.max(this.bestScore, this.score);
         this.saveBestScore();
         this.updateHud();
-        this.showOverlay();
+        this.showOverlay("Финиш", "Попробуем ещё раз?", message, "Играть снова");
     }
 
     updateHud() {
         this.scoreValue.textContent = String(this.score);
-        this.bestScoreValue.textContent = String(this.bestScore);
+        this.lightningValue.textContent = `+${Math.floor(this.score / 200)}`;
+        this.progressValue.textContent = `${Math.min(this.score, MISSION_TARGET)} / ${MISSION_TARGET}`;
+        this.progressFill.style.width = `${Math.min(this.score / MISSION_TARGET, 1) * 100}%`;
+        this.pauseButton.setAttribute("aria-label", this.paused ? "Продолжить" : "Пауза");
+        this.pauseIcon.className = `circle-button__icon ${this.paused ? "circle-button__icon--play" : "circle-button__icon--pause"}`;
     }
 
     detectCollision(a, b) {
@@ -336,13 +410,19 @@ class DoodleJumpGame {
         );
     }
 
-    showOverlay() {
+    showOverlay(kicker, title, copy, actionLabel) {
+        this.overlayKicker.textContent = kicker;
+        this.overlayTitle.textContent = title;
+        this.overlayCopy.textContent = copy;
+        this.startButton.textContent = actionLabel;
         this.overlay.classList.remove("is-hidden");
-        this.startButton.textContent = this.gameOver ? "Play Again" : "Start";
     }
 
-    hideOverlay() {
+    hideOverlay(isActiveGame = false) {
         this.overlay.classList.add("is-hidden");
+        if (isActiveGame) {
+            this.pauseIcon.className = "circle-button__icon circle-button__icon--pause";
+        }
     }
 
     render() {
@@ -352,13 +432,21 @@ class DoodleJumpGame {
             this.context.drawImage(platform.img, platform.x, platform.y, platform.width, platform.height);
         }
 
-        this.context.drawImage(
-            this.doodler.img,
-            this.doodler.x,
-            this.doodler.y,
-            this.doodler.width,
-            this.doodler.height
-        );
+        this.context.save();
+        if (this.doodler.facing < 0) {
+            this.context.translate(this.doodler.x + this.doodler.width, this.doodler.y);
+            this.context.scale(-1, 1);
+            this.context.drawImage(this.images.mascot, 0, 0, this.doodler.width, this.doodler.height);
+        } else {
+            this.context.drawImage(
+                this.images.mascot,
+                this.doodler.x,
+                this.doodler.y,
+                this.doodler.width,
+                this.doodler.height
+            );
+        }
+        this.context.restore();
     }
 }
 

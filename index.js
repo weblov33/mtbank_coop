@@ -59,6 +59,12 @@ window.addEventListener("load", () => {
         menuScreen.classList.remove("is-hidden");
     }
 
+    window.addEventListener("message", (event) => {
+        if (event.data && event.data.type === "mtbank:close-game") {
+            closeGame();
+        }
+    });
+
     for (const button of gameButtons) {
         button.addEventListener("click", () => {
             selectGame(button.dataset.game);

@@ -1,15 +1,15 @@
 :root {
-    --bg-top: #f7fbff;
-    --bg-bottom: #eaf2ff;
-    --surface: rgba(255, 255, 255, 0.92);
-    --surface-strong: rgba(255, 255, 255, 0.97);
-    --line: rgba(150, 188, 255, 0.22);
-    --shadow: 0 14px 34px rgba(116, 154, 214, 0.16);
-    --shadow-soft: 0 8px 22px rgba(149, 180, 227, 0.14);
-    --text: #1d2433;
-    --muted: #7d8ea9;
+    --bg-top: #f8fbff;
+    --bg-bottom: #eaf1ff;
+    --surface: rgba(255, 255, 255, 0.84);
+    --surface-strong: rgba(255, 255, 255, 0.92);
+    --line: rgba(152, 184, 234, 0.2);
+    --line-strong: rgba(132, 170, 226, 0.28);
+    --shadow: 0 10px 28px rgba(112, 151, 214, 0.12);
+    --shadow-soft: 0 6px 18px rgba(136, 169, 220, 0.1);
+    --text: #1f2a3d;
+    --muted: #72839f;
     --accent: #4896ff;
-    --accent-soft: #eaf3ff;
 }
 
 * {
@@ -28,7 +28,7 @@ body {
     -webkit-user-select: none;
     -webkit-touch-callout: none;
     background:
-        radial-gradient(circle at top, rgba(255, 255, 255, 0.96), transparent 36%),
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.95), transparent 34%),
         linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
 }
 
@@ -60,10 +60,10 @@ canvas,
     display: grid;
     place-items: stretch;
     padding:
-        max(12px, env(safe-area-inset-top))
-        max(14px, env(safe-area-inset-right))
-        max(14px, env(safe-area-inset-bottom))
-        max(14px, env(safe-area-inset-left));
+        max(10px, env(safe-area-inset-top))
+        max(12px, env(safe-area-inset-right))
+        max(12px, env(safe-area-inset-bottom))
+        max(12px, env(safe-area-inset-left));
 }
 
 .game-card {
@@ -71,12 +71,11 @@ canvas,
     height: 100%;
     margin: 0 auto;
     display: grid;
-    grid-template-rows: auto auto minmax(0, 1fr) auto;
-    gap: 14px;
-    overflow: hidden;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 10px;
 }
 
-.screen-pill,
+.stats-grid,
 .stat-card,
 .control-bar,
 .board-overlay,
@@ -88,71 +87,55 @@ canvas,
     box-shadow: var(--shadow-soft);
 }
 
-.screen-pill {
-    min-height: 78px;
-    display: grid;
-    place-items: center;
-    padding: 16px 24px;
-    border-radius: 999px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 251, 255, 0.88));
-    box-shadow: var(--shadow);
-}
-
-.screen-title {
-    margin: 0;
-    font-size: clamp(28px, 4vw, 34px);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-}
-
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
+    gap: 10px;
 }
 
 .stat-card {
-    min-height: 108px;
-    border-radius: 28px;
-    padding: 16px 14px 14px;
+    min-height: 82px;
+    padding: 12px 10px;
+    border-radius: 22px;
     display: grid;
     justify-items: center;
     align-content: center;
-    gap: 6px;
+    gap: 4px;
     text-align: center;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 251, 255, 0.82));
 }
 
 .stat-card--score {
-    background: var(--surface-strong);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 250, 255, 0.9));
 }
 
 .stat-icon-wrap {
-    width: 34px;
-    height: 34px;
+    width: 24px;
+    height: 24px;
     display: grid;
     place-items: center;
 }
 
 .stat-icon {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
 }
 
 .stat-value {
-    font-size: clamp(24px, 4.4vw, 36px);
+    font-size: clamp(22px, 4.6vw, 32px);
     line-height: 1;
     font-weight: 600;
+    letter-spacing: -0.03em;
     color: var(--text);
 }
 
 .stat-value--primary {
-    font-size: clamp(30px, 6vw, 52px);
-    letter-spacing: -0.04em;
+    font-size: clamp(26px, 5vw, 40px);
 }
 
 .stat-label {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.2;
     color: var(--muted);
 }
@@ -161,11 +144,13 @@ canvas,
     position: relative;
     min-height: 0;
     overflow: hidden;
-    border-radius: 34px;
+    border-radius: 30px;
     background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02)),
-        rgba(240, 247, 255, 0.58);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.34);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04)),
+        rgba(239, 246, 255, 0.56);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.34),
+        var(--shadow);
 }
 
 .board-panel::before,
@@ -174,22 +159,23 @@ canvas,
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 1;
 }
 
 .board-panel::before {
+    z-index: 1;
     background:
-        radial-gradient(circle at 12% 28%, rgba(255, 255, 255, 0.92) 0, rgba(255, 255, 255, 0) 10%),
-        radial-gradient(circle at 28% 52%, rgba(255, 255, 255, 0.7) 0, rgba(255, 255, 255, 0) 1.2%),
-        radial-gradient(circle at 74% 38%, rgba(255, 255, 255, 0.76) 0, rgba(255, 255, 255, 0) 1.4%),
-        radial-gradient(circle at 57% 64%, rgba(255, 255, 255, 0.76) 0, rgba(255, 255, 255, 0) 1.1%);
-    opacity: 0.7;
+        radial-gradient(circle at 14% 30%, rgba(255, 255, 255, 0.9) 0, rgba(255, 255, 255, 0) 9%),
+        radial-gradient(circle at 33% 58%, rgba(255, 255, 255, 0.64) 0, rgba(255, 255, 255, 0) 1.1%),
+        radial-gradient(circle at 72% 40%, rgba(255, 255, 255, 0.7) 0, rgba(255, 255, 255, 0) 1.2%),
+        radial-gradient(circle at 58% 70%, rgba(255, 255, 255, 0.68) 0, rgba(255, 255, 255, 0) 1%);
+    opacity: 0.72;
 }
 
 .board-panel::after {
+    z-index: 2;
     background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 18%),
-        linear-gradient(0deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 22%);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 20%),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 18%);
 }
 
 #board,
@@ -208,21 +194,22 @@ canvas,
 }
 
 .board-tap-layer {
-    z-index: 3;
+    z-index: 4;
     background: transparent;
     touch-action: manipulation;
 }
 
 .board-overlay {
     position: absolute;
-    inset: auto 16px 18px;
-    z-index: 4;
-    display: grid;
-    justify-items: center;
-    gap: 10px;
-    padding: 18px 20px;
-    border-radius: 28px;
-    backdrop-filter: blur(16px);
+    left: 50%;
+    bottom: 14px;
+    z-index: 5;
+    transform: translateX(-50%);
+    width: calc(100% - 28px);
+    max-width: 320px;
+    padding: 14px 16px;
+    border-radius: 22px;
+    backdrop-filter: blur(14px);
 }
 
 .board-overlay.is-hidden {
@@ -232,13 +219,13 @@ canvas,
 .overlay-content {
     display: grid;
     justify-items: center;
-    gap: 10px;
+    gap: 8px;
     text-align: center;
 }
 
 .overlay-title {
     margin: 0;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     letter-spacing: -0.03em;
 }
@@ -246,8 +233,8 @@ canvas,
 .overlay-copy {
     margin: 0;
     color: var(--muted);
-    font-size: 14px;
-    line-height: 1.35;
+    font-size: 13px;
+    line-height: 1.3;
 }
 
 .primary-button,
@@ -259,22 +246,23 @@ canvas,
 }
 
 .primary-button {
-    min-height: 52px;
-    padding: 0 22px;
+    min-height: 42px;
+    padding: 0 18px;
     border-radius: 999px;
-    background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f2f7ff 100%);
+    font-size: 14px;
     font-weight: 600;
 }
 
 .control-bar {
-    min-height: 96px;
-    border-radius: 34px;
-    padding: 14px;
+    min-height: 74px;
+    border-radius: 26px;
+    padding: 10px 12px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: 14px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(243, 248, 255, 0.9));
+    gap: 10px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(244, 248, 255, 0.88));
     box-shadow: var(--shadow);
 }
 
@@ -282,23 +270,28 @@ canvas,
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     min-width: 0;
 }
 
 .control-icon,
 .secondary-button {
-    width: 58px;
-    height: 58px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    background: linear-gradient(180deg, #ffffff 0%, #f1f7ff 100%);
-    font-size: 28px;
+    background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
     color: var(--accent);
+    border: 1px solid var(--line-strong);
+    box-shadow: 0 4px 12px rgba(128, 166, 224, 0.12);
+}
+
+.control-icon {
+    font-size: 24px;
 }
 
 .control-copy {
-    font-size: 16px;
-    color: #5f6f89;
+    font-size: 13px;
+    color: #667892;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -306,64 +299,46 @@ canvas,
 
 .secondary-button {
     justify-self: end;
-    font-size: 27px;
+    font-size: 22px;
     line-height: 1;
 }
 
 @media (max-width: 480px) {
     .app-shell {
         padding:
-            max(10px, env(safe-area-inset-top))
-            max(10px, env(safe-area-inset-right))
-            max(10px, env(safe-area-inset-bottom))
-            max(10px, env(safe-area-inset-left));
+            max(8px, env(safe-area-inset-top))
+            max(8px, env(safe-area-inset-right))
+            max(8px, env(safe-area-inset-bottom))
+            max(8px, env(safe-area-inset-left));
     }
 
     .game-card {
-        gap: 10px;
-    }
-
-    .screen-pill {
-        min-height: 66px;
-        padding: 14px 18px;
-    }
-
-    .screen-title {
-        font-size: 24px;
+        gap: 8px;
     }
 
     .stats-grid {
-        gap: 10px;
+        gap: 8px;
     }
 
     .stat-card {
-        min-height: 92px;
-        padding: 14px 10px 12px;
-        border-radius: 24px;
-    }
-
-    .stat-label {
-        font-size: 12px;
+        min-height: 76px;
+        border-radius: 20px;
+        padding: 10px 8px;
     }
 
     .board-panel {
-        border-radius: 28px;
+        border-radius: 26px;
+    }
+
+    .board-overlay {
+        width: calc(100% - 20px);
+        bottom: 10px;
+        padding: 12px 14px;
     }
 
     .control-bar {
-        min-height: 82px;
-        padding: 12px;
-        border-radius: 28px;
-    }
-
-    .control-icon,
-    .secondary-button {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-    }
-
-    .control-copy {
-        font-size: 14px;
+        min-height: 68px;
+        border-radius: 24px;
+        padding: 9px 10px;
     }
 }

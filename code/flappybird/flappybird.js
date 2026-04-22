@@ -12,6 +12,8 @@ const MAX_FALL_SPEED = 7.2;
 const PIPE_GAP = 168;
 const BIRD_HITBOX_SCALE = 0.82;
 const STORAGE_KEY = "mtbank-flappybird-best";
+const BIRD_RENDER_SCALE_X = 1.34;
+const BIRD_RENDER_SCALE_Y = 1.08;
 
 class FlappyBirdGame {
     constructor() {
@@ -49,7 +51,7 @@ class FlappyBirdGame {
         this.bindEvents();
         this.reset();
         this.render();
-        this.showOverlay("Готовы", "Коснитесь экрана, чтобы взлететь.");
+        this.showOverlay("Готовы", "Коснитесь, чтобы взлететь");
     }
 
     bindEvents() {
@@ -131,7 +133,7 @@ class FlappyBirdGame {
         }
 
         this.render();
-        this.showOverlay("Готовы", "Коснитесь экрана, чтобы взлететь.");
+        this.showOverlay("Готовы", "Коснитесь, чтобы взлететь");
     }
 
     start() {
@@ -310,12 +312,17 @@ class FlappyBirdGame {
             this.context.drawImage(this.pipeSprite, pipe.x, pipe.y, pipe.width, pipe.height);
         }
 
+        const renderBirdWidth = this.bird.width * BIRD_RENDER_SCALE_X;
+        const renderBirdHeight = this.bird.height * BIRD_RENDER_SCALE_Y;
+        const renderBirdX = this.bird.x - (renderBirdWidth - this.bird.width) / 2;
+        const renderBirdY = this.bird.y - (renderBirdHeight - this.bird.height) / 2;
+
         this.context.drawImage(
             this.birdSprite,
-            this.bird.x,
-            this.bird.y,
-            this.bird.width,
-            this.bird.height
+            renderBirdX,
+            renderBirdY,
+            renderBirdWidth,
+            renderBirdHeight
         );
     }
 }

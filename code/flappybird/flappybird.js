@@ -32,17 +32,14 @@ class FlappyBirdGame {
         this.context.setTransform(this.deviceScale, 0, 0, this.deviceScale, 0, 0);
 
         this.birdSprite = new Image();
-        this.topPipeSprite = new Image();
-        this.bottomPipeSprite = new Image();
+        this.pipeSprite = new Image();
         const rerender = () => this.render();
 
         this.birdSprite.addEventListener("load", rerender);
-        this.topPipeSprite.addEventListener("load", rerender);
-        this.bottomPipeSprite.addEventListener("load", rerender);
+        this.pipeSprite.addEventListener("load", rerender);
 
         this.birdSprite.src = "./flappybird.png";
-        this.topPipeSprite.src = "./toppipe.png";
-        this.bottomPipeSprite.src = "./bottompipe.png";
+        this.pipeSprite.src = "./flappy-pipe.webp";
 
         this.animationFrame = null;
         this.pipeTimer = null;
@@ -183,20 +180,20 @@ class FlappyBirdGame {
         const openingSpace = PIPE_GAP;
 
         this.pipeArray.push({
-            img: this.topPipeSprite,
             x: BOARD_WIDTH,
             y: randomPipeY,
             width: PIPE_WIDTH,
             height: PIPE_HEIGHT,
+            isTop: true,
             passed: false
         });
 
         this.pipeArray.push({
-            img: this.bottomPipeSprite,
             x: BOARD_WIDTH,
             y: randomPipeY + PIPE_HEIGHT + openingSpace,
             width: PIPE_WIDTH,
             height: PIPE_HEIGHT,
+            isTop: false,
             passed: false
         });
     }
@@ -295,7 +292,22 @@ class FlappyBirdGame {
         this.context.clearRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 
         for (const pipe of this.pipeArray) {
-            this.context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
+            if (pipe.isTop) {
+                this.context.save();
+                this.context.translate(pipe.x + pipe.width / 2, pipe.y + pipe.height / 2);
+                this.context.scale(1, -1);
+                this.context.drawImage(
+                    this.pipeSprite,
+                    -pipe.width / 2,
+                    -pipe.height / 2,
+                    pipe.width,
+                    pipe.height
+                );
+                this.context.restore();
+                continue;
+            }
+
+            this.context.drawImage(this.pipeSprite, pipe.x, pipe.y, pipe.width, pipe.height);
         }
 
         this.context.drawImage(

@@ -1083,7 +1083,7 @@ button {
 
 .recovery-actions {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 8px;
     margin-top: 2px;
 }
@@ -1109,8 +1109,14 @@ button {
 }
 
 .recovery-button--primary {
+    border: 1px solid rgba(32, 103, 235, 0.22);
     background: linear-gradient(180deg, #3286ff 0%, #1f62ea 100%);
     color: #ffffff;
+    box-shadow: 0 14px 24px rgba(45, 120, 255, 0.2);
+}
+
+.recovery-button--full {
+    width: 100%;
 }
 
 .recovery-button:hover:not(:disabled),
@@ -1438,10 +1444,71 @@ button {
     font-weight: 500;
 }
 
+.game-option__subtitle {
+    display: none;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
 .game-option__arrow {
     color: #b2bbcf;
     font-size: 20px;
     line-height: 1;
+}
+
+.game-option__status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 0 12px;
+    border: 1px solid rgba(44, 121, 255, 0.16);
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ffffff 0%, #edf4ff 100%);
+    color: var(--accent);
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.game-option--coming-soon {
+    align-items: center;
+}
+
+.game-option--coming-soon .game-option__body {
+    display: grid;
+    align-content: center;
+}
+
+.game-option--coming-soon .game-option__title {
+    font-weight: 700;
+}
+
+.game-option--coming-soon .game-option__subtitle {
+    display: block;
+}
+
+.game-option--coming-soon .game-option__arrow {
+    display: none;
+}
+
+.game-option--coming-soon.is-revealed {
+    border-color: #d7e6ff;
+    background: linear-gradient(180deg, #ffffff 0%, #f6faff 100%);
+    box-shadow: 0 14px 24px rgba(90, 123, 194, 0.08);
+}
+
+.game-option--coming-soon.is-revealed .game-option__status {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .play-button {

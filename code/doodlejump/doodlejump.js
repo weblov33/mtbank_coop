@@ -53,7 +53,6 @@ class DoodleJumpGame {
         this.bindEvents();
         this.reset();
         this.render();
-        this.showOverlay();
     }
 
     getPauseIconMarkup(isPlay = false) {
@@ -81,8 +80,8 @@ class DoodleJumpGame {
         mascot.addEventListener("load", rerender);
         platform.addEventListener("load", rerender);
 
-        mascot.src = "../../mascot/SVG/прыжок.svg";
-        platform.src = "../../games_assest/джампер/джампер плитка.webp";
+        mascot.src = "./jumper-mascot.png";
+        platform.src = "./jumper-platform.webp";
 
         return { mascot, platform };
     }
@@ -113,6 +112,19 @@ class DoodleJumpGame {
                 this.resume();
                 return;
             }
+            await this.enableTiltIfNeeded();
+            this.start();
+        });
+
+        this.overlay.addEventListener("click", async (event) => {
+            if (event.target === this.startButton) {
+                return;
+            }
+
+            if (this.overlay.dataset.mode !== "start") {
+                return;
+            }
+
             await this.enableTiltIfNeeded();
             this.start();
         });
@@ -276,7 +288,7 @@ class DoodleJumpGame {
         }
 
         this.render();
-        this.showOverlay("Мини-игра", "Джампер", "Наберите 1000 очков и соберите молнии по пути.", "Играть");
+        this.showOverlay("", "Нажмите, чтобы начать", "Коснитесь экрана", "Начать", false, "start");
     }
 
     placePlatforms() {
@@ -379,7 +391,7 @@ class DoodleJumpGame {
         this.paused = true;
         this.gameStarted = false;
         this.velocityX = 0;
-        this.showOverlay("Пауза", title, message, "Продолжить");
+        this.showOverlay("Пауза", title, message, "Продолжить", true, "pause");
         this.updateHud();
     }
 
@@ -405,7 +417,7 @@ class DoodleJumpGame {
         this.bestScore = Math.max(this.bestScore, this.score);
         this.saveBestScore();
         this.updateHud();
-        this.showOverlay("Финиш", "Попробуем ещё раз?", message, "Играть снова");
+        this.showOverlay("Финиш", "Попробуем ещё раз?", message, "Играть снова", true, "finish");
     }
 
     updateHud() {
@@ -437,11 +449,14 @@ class DoodleJumpGame {
         );
     }
 
-    showOverlay(kicker, title, copy, actionLabel) {
+    showOverlay(kicker, title, copy, actionLabel, showButton = true, mode = "default") {
+        this.overlay.dataset.mode = mode;
         this.overlayKicker.textContent = kicker;
+        this.overlayKicker.classList.toggle("is-hidden", !kicker);
         this.overlayTitle.textContent = title;
         this.overlayCopy.textContent = copy;
         this.startButton.textContent = actionLabel;
+        this.startButton.classList.toggle("is-hidden", !showButton);
         this.overlay.classList.remove("is-hidden");
     }
 

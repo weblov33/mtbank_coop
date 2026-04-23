@@ -3,6 +3,8 @@ function HTMLActuator() {
   this.scoreContainer   = document.querySelector(".score-container");
   this.bestContainer    = document.querySelector(".best-container");
   this.messageContainer = document.querySelector(".game-message");
+  this.hudScore         = document.querySelector(".hud-score-value");
+  this.lightningValue   = document.querySelector("#lightningValue");
 
   this.score = 0;
 }
@@ -110,6 +112,12 @@ HTMLActuator.prototype.updateScore = function (score) {
   this.score = score;
 
   this.scoreContainer.textContent = this.score;
+  if (this.hudScore) {
+    this.hudScore.textContent = this.score;
+  }
+  if (this.lightningValue) {
+    this.lightningValue.textContent = "+" + Math.floor(this.score / 100);
+  }
 
   if (difference > 0) {
     var addition = document.createElement("div");
@@ -126,7 +134,7 @@ HTMLActuator.prototype.updateBestScore = function (bestScore) {
 
 HTMLActuator.prototype.message = function (won) {
   var type    = won ? "game-won" : "game-over";
-  var message = won ? "You win!" : "Game over!";
+  var message = won ? "Победа!" : "Игра окончена";
 
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;

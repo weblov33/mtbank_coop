@@ -444,6 +444,26 @@ window.addEventListener("load", () => {
         showTab(navId);
     }
 
+    function toggleComingSoon(button) {
+        if (!button) {
+            return;
+        }
+
+        const shouldReveal = !button.classList.contains("is-revealed");
+
+        for (const gameButton of gameButtons) {
+            if (gameButton !== button) {
+                gameButton.classList.remove("is-revealed");
+                if (gameButton.dataset.comingSoon === "true") {
+                    gameButton.setAttribute("aria-expanded", "false");
+                }
+            }
+        }
+
+        button.classList.toggle("is-revealed", shouldReveal);
+        button.setAttribute("aria-expanded", String(shouldReveal));
+    }
+
     function selectGame(gameId) {
         const game = games[gameId];
         if (!game) {
@@ -760,6 +780,11 @@ window.addEventListener("load", () => {
 
     for (const button of gameButtons) {
         button.addEventListener("click", () => {
+            if (button.dataset.comingSoon === "true") {
+                toggleComingSoon(button);
+                return;
+            }
+
             selectGame(button.dataset.game);
             openGame(button.dataset.game);
         });
@@ -826,6 +851,13 @@ window.addEventListener("load", () => {
     document.addEventListener("click", (event) => {
         if (!activityPopover || !activityInfoButton) {
             return;
+        }
+
+        for (const gameButton of gameButtons) {
+            if (gameButton.dataset.comingSoon === "true" && !gameButton.contains(event.target)) {
+                gameButton.classList.remove("is-revealed");
+                gameButton.setAttribute("aria-expanded", "false");
+            }
         }
 
         const clickedInfo = activityInfoButton.contains(event.target);

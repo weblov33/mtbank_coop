@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <title>2048</title>
@@ -14,61 +14,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 </head>
 <body>
-  <div class="container">
-    <div class="heading">
-      <div><h1 class="title">2048</h1></div>
-      <div class="scores-container">
-        <div class="score-container">0</div>
-        <div class="best-container">0</div>
-      </div>
-    </div>
-    <div class="top-actions">
-      <button class="action-button" type="button" onclick="handle_undo()">Undo</button>
-      <button class="action-button retry-button" type="button">Restart</button>
-    </div>
+  <main class="app-shell">
+    <section class="game-screen">
+      <section class="stats-strip">
+        <article class="stat-card stat-card--series">
+          <div class="stat-value stat-value--with-icon">
+            <img src="../../assets_home/огонек.svg" alt="" class="stat-icon">
+            <span>12</span>
+          </div>
+          <p class="stat-label">Уровень серии</p>
+        </article>
 
-    <div class="game-container">
-      <div class="game-message">
-        <p></p>
-        <div class="lower">
-	        <a class="keep-playing-button">Keep going</a>
-          <a class="retry-button">Try again</a>
-        </div>
-      </div>
+        <article class="stat-card stat-card--score">
+          <div class="stat-value hud-score-value">0</div>
+          <p class="stat-label">Очки</p>
+        </article>
 
-      <div class="grid-container">
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-      </div>
+        <article class="stat-card stat-card--lightning">
+          <div class="stat-value stat-value--with-icon">
+            <img src="../../assets_home/молния.svg" alt="" class="stat-icon">
+            <span id="lightningValue">+0</span>
+          </div>
+          <p class="stat-label">Молнии</p>
+        </article>
+      </section>
 
-      <div class="tile-container">
+      <section class="scoreboard-panel">
+        <div class="scoreboard-copy">
+          <h2 class="scoreboard-title">2048</h2>
+        </div>
 
-      </div>
-    </div>
+        <div class="scoreboard-cards">
+          <article class="result-card">
+            <span class="result-label">Рекорд</span>
+            <div class="score-container">0</div>
+          </article>
+          <article class="result-card">
+            <span class="result-label">Лучший</span>
+            <div class="best-container">0</div>
+          </article>
+        </div>
+      </section>
 
-  </div>
+      <section class="controls-panel" aria-label="Действия">
+        <button class="control-button" type="button" onclick="handle_undo()" aria-label="Отменить">
+          <span class="control-circle">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10 7 5 12l5 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+              <path d="M6 12h6.2a5.8 5.8 0 1 1 0 11.6H10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+            </svg>
+          </span>
+          <span class="control-label">Отменить</span>
+        </button>
+
+        <button class="control-button retry-button" type="button" aria-label="Новая игра">
+          <span class="control-circle">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18.5 8.5A7.5 7.5 0 0 0 5.9 6.4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+              <path d="M6 3.8v4.8h4.8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+              <path d="M5.5 15.5A7.5 7.5 0 0 0 18.1 17.6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+              <path d="M18 20.2v-4.8h-4.8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+            </svg>
+          </span>
+          <span class="control-label">Новая игра</span>
+        </button>
+      </section>
+
+      <section class="board-shell">
+        <div class="game-container">
+          <div class="game-message">
+            <div class="message-card">
+              <p></p>
+              <div class="lower">
+                <a class="keep-playing-button">Продолжить</a>
+                <a class="retry-button">Играть снова</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-container">
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+          </div>
+
+          <div class="tile-container"></div>
+        </div>
+      </section>
+
+      <aside class="hint-card">
+        <img src="../../assets_home/молния.svg" alt="" class="hint-icon">
+        <p>Объединяйте числа и получайте больше очков</p>
+      </aside>
+    </section>
+  </main>
 
   <script src="js/seedrandom.js"></script>
   <script src="js/animframe_polyfill.js"></script>
@@ -79,6 +139,5 @@
   <script src="js/local_score_manager.js"></script>
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
-
 </body>
 </html>

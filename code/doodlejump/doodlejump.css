@@ -16,75 +16,6 @@
     --radius-sm: 16px;
 }
 
-/* Mobile viewport hardening for Android Chrome and direct game opens. */
-:root {
-    --game-height: 100dvh;
-}
-
-html,
-body {
-    width: 100%;
-    min-height: var(--game-height);
-    overscroll-behavior: none;
-    -webkit-text-size-adjust: 100%;
-}
-
-body {
-    width: 100%;
-}
-
-.app-shell {
-    width: 100%;
-    min-height: var(--game-height);
-    height: var(--game-height);
-    overflow: hidden;
-}
-
-canvas,
-button {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-}
-
-#board {
-    touch-action: none;
-}
-
-@supports (height: 100svh) {
-    :root {
-        --game-height: 100svh;
-    }
-}
-
-@supports (height: 100dvh) {
-    :root {
-        --game-height: 100dvh;
-    }
-}
-
-@media (orientation: landscape) and (max-height: 540px) {
-    body::after {
-        content: "Пожалуйста, поверните устройство вертикально";
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        display: grid;
-        place-items: center;
-        padding: 24px;
-        background: linear-gradient(180deg, #eef5ff 0%, #dceaff 100%);
-        color: var(--text);
-        font-size: 20px;
-        line-height: 1.25;
-        font-weight: 700;
-        text-align: center;
-    }
-
-    .app-shell {
-        visibility: hidden;
-        pointer-events: none;
-    }
-}
-
 * {
     box-sizing: border-box;
 }
@@ -106,7 +37,7 @@ body {
 }
 
 body {
-    min-height: var(--game-height);
+    min-height: 100dvh;
     width: 100%;
 }
 
@@ -115,13 +46,14 @@ button {
 }
 
 .app-shell {
-    min-height: var(--game-height);
-    height: var(--game-height);
+    min-height: 100dvh;
+    height: 100dvh;
     width: 100%;
     padding: 0;
 }
 
 .game-screen {
+    place-items: center;
     width: 100%;
     height: 100%;
     display: grid;
@@ -237,16 +169,18 @@ button {
 
 .board-stage {
     display: grid;
-    place-items: stretch;
+    place-items: center;
     min-height: 0;
     height: 100%;
+    width: 100%;
     padding: 0;
 }
 
 .board-frame {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: min(100%, 390px);
+    height: min(100%, 690px);
+    margin: 0 auto;
     border-radius: 30px;
     overflow: hidden;
     background: transparent;
@@ -257,7 +191,7 @@ button {
     display: block;
     width: 100%;
     height: 100%;
-    background-image: url("../../games_assest/джампер/джампер фон.webp");
+    background-image: url("./jumper-bg.webp");
     background-size: cover;
     background-position: center;
 }
@@ -305,6 +239,7 @@ button {
     max-width: 238px;
     padding: 18px 16px;
     text-align: center;
+    justify-items: center;
 }
 
 .overlay-title {
@@ -322,6 +257,10 @@ button {
     text-transform: uppercase;
 }
 
+.overlay-kicker.is-hidden {
+    display: none;
+}
+
 .overlay-copy {
     margin: 0 0 18px;
     color: var(--muted);
@@ -337,6 +276,10 @@ button {
     min-height: 46px;
     padding: 0 20px;
     box-shadow: 0 14px 24px rgba(47, 128, 255, 0.24);
+}
+
+.primary-button.is-hidden {
+    display: none;
 }
 
 .bottom-bar {
@@ -514,22 +457,4 @@ button {
         width: 22px;
         height: 22px;
     }
-}
-
-/* Final mobile sizing overrides must stay after legacy game rules. */
-html,
-body {
-    width: 100%;
-    min-height: var(--game-height);
-    overscroll-behavior: none;
-}
-
-body,
-.app-shell {
-    width: 100%;
-}
-
-.app-shell {
-    min-height: var(--game-height);
-    height: var(--game-height);
 }

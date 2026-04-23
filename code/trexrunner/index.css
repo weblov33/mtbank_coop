@@ -9,6 +9,68 @@ html, body {
   height: 100%;
 }
 
+/* Mobile viewport hardening for Android Chrome and direct game opens. */
+:root {
+  --game-height: 100dvh;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: var(--game-height);
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body.offline {
+  width: 100%;
+  min-height: var(--game-height);
+}
+
+.offline .interstitial-wrapper {
+  max-width: 100%;
+  min-height: var(--game-height);
+  height: var(--game-height);
+  overflow: hidden;
+}
+
+@supports (height: 100svh) {
+  :root {
+    --game-height: 100svh;
+  }
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --game-height: 100dvh;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+  body::after {
+    content: "Пожалуйста, поверните устройство вертикально";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: linear-gradient(180deg, #f5f5f3 0%, #e9e9e0 100%);
+    color: #1f1f1a;
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .offline .interstitial-wrapper {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
 .icon {
   -webkit-user-select: none;
   user-select: none;
@@ -58,11 +120,11 @@ html, body {
 
 .offline .controller {
   background: rgba(247, 247, 247, .1);
-  height: 100vh;
+  height: var(--game-height);
   left: 0;
   position: absolute;
   top: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 1;
 }
 
@@ -150,7 +212,7 @@ html, body {
 }
 
 .arcade-mode .interstitial-wrapper {
-  height: 100vh;
+  height: var(--game-height);
   max-width: 100%;
   overflow: hidden;
 }
@@ -168,7 +230,7 @@ body.offline {
   background: #f5f5f3;
   color: #1f1f1a;
   display: block;
-  width: 100vw;
+  width: 100%;
   padding:
     max(8px, env(safe-area-inset-top))
     max(8px, env(safe-area-inset-right))
@@ -176,7 +238,7 @@ body.offline {
     max(8px, env(safe-area-inset-left));
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
-  min-height: 100dvh;
+  min-height: var(--game-height);
   overflow: hidden;
 }
 
@@ -204,7 +266,7 @@ body.offline {
 
 .offline .interstitial-wrapper {
   width: 100%;
-  height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  height: calc(var(--game-height) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   margin: 0;
   padding: 14px;
   background: #ffffff;
@@ -255,4 +317,19 @@ body.offline {
     min-height: 100dvh;
     height: 100dvh;
   }
+}
+
+/* Final mobile sizing overrides must stay after legacy game rules. */
+html,
+body,
+body.offline {
+  width: 100%;
+  min-height: var(--game-height);
+  overscroll-behavior: none;
+}
+
+.offline .interstitial-wrapper {
+  max-width: 100%;
+  min-height: var(--game-height);
+  height: var(--game-height);
 }

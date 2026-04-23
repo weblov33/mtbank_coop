@@ -31,9 +31,7 @@ class FlappyBirdGame {
         this.tapLayer = document.getElementById("tapLayer");
         this.deviceScale = Math.max(window.devicePixelRatio || 1, 1);
 
-        this.board.width = Math.round(BOARD_WIDTH * this.deviceScale);
-        this.board.height = Math.round(BOARD_HEIGHT * this.deviceScale);
-        this.context.setTransform(this.deviceScale, 0, 0, this.deviceScale, 0, 0);
+        this.setupCanvas();
 
         this.birdSprite = new Image();
         this.pipeSprite = new Image();
@@ -55,6 +53,13 @@ class FlappyBirdGame {
         this.reset();
         this.render();
         this.showOverlay("Готовы", "Коснитесь, чтобы взлететь");
+    }
+
+    setupCanvas() {
+        this.board.width = Math.round(BOARD_WIDTH * this.deviceScale);
+        this.board.height = Math.round(BOARD_HEIGHT * this.deviceScale);
+        this.context.setTransform(this.deviceScale, 0, 0, this.deviceScale, 0, 0);
+        this.context.imageSmoothingEnabled = true;
     }
 
     bindEvents() {
@@ -120,6 +125,15 @@ class FlappyBirdGame {
                 this.pause();
             }
         });
+
+        window.addEventListener("resize", () => {
+            const nextScale = Math.max(window.devicePixelRatio || 1, 1);
+            if (Math.abs(nextScale - this.deviceScale) > 0.01) {
+                this.deviceScale = nextScale;
+                this.setupCanvas();
+            }
+            this.render();
+        }, { passive: true });
     }
 
     loadBestScore() {

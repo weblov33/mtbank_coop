@@ -101,6 +101,7 @@ class DoodleJumpGame {
         this.board.width = Math.round(BOARD_WIDTH * this.deviceScale);
         this.board.height = Math.round(BOARD_HEIGHT * this.deviceScale);
         this.context.setTransform(this.deviceScale, 0, 0, this.deviceScale, 0, 0);
+        this.context.imageSmoothingEnabled = true;
     }
 
     bindEvents() {
@@ -159,6 +160,15 @@ class DoodleJumpGame {
                 this.applyTiltControl();
             }
         });
+
+        window.addEventListener("resize", () => {
+            const nextScale = Math.max(window.devicePixelRatio || 1, 1);
+            if (Math.abs(nextScale - this.deviceScale) > 0.01) {
+                this.deviceScale = nextScale;
+                this.setupCanvas();
+            }
+            this.render();
+        }, { passive: true });
 
         document.addEventListener("keydown", (event) => {
             if (event.code === "Space") {

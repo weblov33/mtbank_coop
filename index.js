@@ -60,7 +60,8 @@ const hugeIcons = {
     edit: '<path d="M4 20h4l11-11a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/>',
     home: '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1v-9.5Z"/>',
     tasks: '<path d="M5 6.5h14M5 12h14M5 17.5h9"/><path d="m16 17.5 1.8 1.8L22 15"/>',
-    ranking: '<path d="M6 20V10M12 20V4M18 20v-7"/><path d="M4 20h16"/>'
+    ranking: '<path d="M6 20V10M12 20V4M18 20v-7"/><path d="M4 20h16"/>',
+    phonePortrait: '<path d="M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M11 18h2"/>'
 };
 
 function getIconSvg(name) {
@@ -217,9 +218,67 @@ window.addEventListener("load", () => {
     const navButtons = [...document.querySelectorAll(".bottom-nav__item")];
     const tabPanels = [...document.querySelectorAll(".tab-panel")];
     const balanceValues = [...document.querySelectorAll("[data-balance]")];
+    const orientationLock = document.getElementById("orientationLock");
 
     let selectedGameId = "doodlejump";
     let homeStats = null;
+    let viewportRaf = null;
+    let lastTouchEnd = 0;
+
+    function syncViewportMetrics() {
+        const viewport = window.visualViewport;
+        const width = Math.round(viewport ? viewport.width : window.innerWidth);
+        const height = Math.round(viewport ? viewport.height : window.innerHeight);
+        const root = document.documentElement;
+
+        root.style.setProperty("--app-width", `${width}px`);
+        root.style.setProperty("--app-height", `${height}px`);
+        root.classList.toggle("is-landscape", width > height);
+
+        if (orientationLock) {
+            const isLandscape = width > height;
+            orientationLock.setAttribute("aria-hidden", String(!isLandscape));
+        }
+    }
+
+    function scheduleViewportSync() {
+        if (viewportRaf) {
+            cancelAnimationFrame(viewportRaf);
+        }
+
+        viewportRaf = requestAnimationFrame(() => {
+            viewportRaf = null;
+            syncViewportMetrics();
+        });
+    }
+
+    async function requestPortraitLock() {
+        if (!screen.orientation || typeof screen.orientation.lock !== "function") {
+            return;
+        }
+
+        try {
+            await screen.orientation.lock("portrait");
+        } catch (_error) {
+            // Browser support is intentionally best-effort; CSS overlay handles fallback.
+        }
+    }
+
+    function preventGestureZoom() {
+        document.addEventListener("gesturestart", (event) => event.preventDefault());
+        document.addEventListener("touchstart", (event) => {
+            if (event.touches && event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+        document.addEventListener("touchend", (event) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+    }
 
     function hydrateStaticIcons() {
         for (const iconNode of document.querySelectorAll("[data-icon]")) {
@@ -404,6 +463,8 @@ window.addEventListener("load", () => {
             return;
         }
 
+        requestPortraitLock();
+        scheduleViewportSync();
         title.textContent = game.title;
         frame.src = game.url;
         menuScreen.classList.add("is-hidden");
@@ -688,6 +749,7 @@ window.addEventListener("load", () => {
         frame.src = games[selectedGameId].url;
         playerScreen.classList.add("is-hidden");
         menuScreen.classList.remove("is-hidden");
+        scheduleViewportSync();
     }
 
     window.addEventListener("message", (event) => {
@@ -774,6 +836,20 @@ window.addEventListener("load", () => {
         }
     });
 
+    window.addEventListener("resize", scheduleViewportSync, { passive: true });
+    window.addEventListener("orientationchange", () => {
+        window.setTimeout(scheduleViewportSync, 80);
+        window.setTimeout(scheduleViewportSync, 320);
+    }, { passive: true });
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", scheduleViewportSync, { passive: true });
+        window.visualViewport.addEventListener("scroll", scheduleViewportSync, { passive: true });
+    }
+
+    syncViewportMetrics();
+    preventGestureZoom();
+    requestPortraitLock();
     selectGame(selectedGameId);
     hydrateStaticIcons();
     renderStaticTabs();

@@ -16,6 +16,75 @@
     --radius-sm: 16px;
 }
 
+/* Mobile viewport hardening for Android Chrome and direct game opens. */
+:root {
+    --game-height: 100dvh;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: var(--game-height);
+    overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    width: 100%;
+}
+
+.app-shell {
+    width: 100%;
+    min-height: var(--game-height);
+    height: var(--game-height);
+    overflow: hidden;
+}
+
+canvas,
+button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#board {
+    touch-action: none;
+}
+
+@supports (height: 100svh) {
+    :root {
+        --game-height: 100svh;
+    }
+}
+
+@supports (height: 100dvh) {
+    :root {
+        --game-height: 100dvh;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+    body::after {
+        content: "Пожалуйста, поверните устройство вертикально";
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: linear-gradient(180deg, #eef5ff 0%, #dceaff 100%);
+        color: var(--text);
+        font-size: 20px;
+        line-height: 1.25;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .app-shell {
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
 * {
     box-sizing: border-box;
 }
@@ -37,8 +106,8 @@ body {
 }
 
 body {
-    min-height: 100dvh;
-    width: 100vw;
+    min-height: var(--game-height);
+    width: 100%;
 }
 
 button {
@@ -46,9 +115,9 @@ button {
 }
 
 .app-shell {
-    min-height: 100dvh;
-    height: 100dvh;
-    width: 100vw;
+    min-height: var(--game-height);
+    height: var(--game-height);
+    width: 100%;
     padding: 0;
 }
 
@@ -445,4 +514,22 @@ button {
         width: 22px;
         height: 22px;
     }
+}
+
+/* Final mobile sizing overrides must stay after legacy game rules. */
+html,
+body {
+    width: 100%;
+    min-height: var(--game-height);
+    overscroll-behavior: none;
+}
+
+body,
+.app-shell {
+    width: 100%;
+}
+
+.app-shell {
+    min-height: var(--game-height);
+    height: var(--game-height);
 }

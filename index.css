@@ -17,6 +17,8 @@
     --radius-lg: 28px;
     --radius-md: 22px;
     --radius-sm: 18px;
+    --app-width: 100%;
+    --app-height: 100dvh;
 }
 
 * {
@@ -35,7 +37,11 @@ body {
 }
 
 body {
-    min-height: 100dvh;
+    min-height: var(--app-height);
+    overscroll-behavior: none;
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
 
 button,
@@ -44,14 +50,21 @@ iframe {
     font: inherit;
 }
 
+img,
+svg,
+canvas,
+iframe {
+    max-width: 100%;
+}
+
 button {
     appearance: none;
     border: 0;
 }
 
 .app-shell {
-    width: 100vw;
-    height: 100dvh;
+    width: 100%;
+    height: var(--app-height);
     padding:
         max(12px, env(safe-area-inset-top))
         max(12px, env(safe-area-inset-right))
@@ -2792,6 +2805,197 @@ button {
 .profile-section-head button {
     display: inline-flex;
     gap: 4px;
+}
+
+/* Cross-platform mobile viewport and portrait safety layer. */
+.app-shell {
+    width: 100%;
+    max-width: 100%;
+    height: var(--app-height);
+    min-height: var(--app-height);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.menu-screen,
+.player-screen,
+.home-surface {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.home-surface {
+    height: 100%;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.tab-content,
+.tab-panel {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.tab-panel {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    overflow-x: hidden;
+    scroll-padding-bottom: 88px;
+}
+
+.home-tab {
+    min-height: 0;
+    padding-bottom: 12px;
+}
+
+.bottom-nav {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0;
+    transform: translateZ(0);
+}
+
+.games-sheet {
+    max-width: calc(100% - 20px);
+    max-height: min(54vh, calc(var(--app-height) - 168px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+.player-screen {
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.player-topbar {
+    flex: 0 0 auto;
+    min-width: 0;
+}
+
+.game-frame {
+    display: block;
+    min-width: 0;
+    min-height: 0;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.orientation-lock {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    place-items: center;
+    padding:
+        max(18px, env(safe-area-inset-top))
+        max(18px, env(safe-area-inset-right))
+        max(18px, env(safe-area-inset-bottom))
+        max(18px, env(safe-area-inset-left));
+    background:
+        radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.72) 34%, transparent 58%),
+        linear-gradient(180deg, #eef5ff 0%, #dceaff 100%);
+}
+
+.orientation-lock__card {
+    width: min(360px, 100%);
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    padding: 26px 22px;
+    border: 1px solid rgba(214, 224, 244, 0.95);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 24px 58px rgba(70, 104, 170, 0.18);
+    text-align: center;
+}
+
+.orientation-lock__icon {
+    width: 46px;
+    height: 46px;
+    padding: 10px;
+    border-radius: 18px;
+    background: #edf4ff;
+    color: var(--accent);
+}
+
+.orientation-lock h2,
+.orientation-lock p {
+    margin: 0;
+}
+
+.orientation-lock h2 {
+    font-size: 22px;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+}
+
+.orientation-lock p {
+    max-width: 280px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.38;
+    font-weight: 650;
+}
+
+html.is-landscape .orientation-lock {
+    display: grid;
+}
+
+html.is-landscape .app-shell {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+    .orientation-lock {
+        display: grid;
+    }
+
+    .app-shell {
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+@supports (height: 100svh) {
+    :root {
+        --app-height: 100svh;
+    }
+}
+
+@supports (height: 100dvh) {
+    :root {
+        --app-height: 100dvh;
+    }
+}
+
+@media (max-width: 380px) {
+    .tab-header h1 {
+        font-size: 26px;
+    }
+
+    .series-row,
+    .gift-pill {
+        max-width: 100%;
+    }
+
+    .home-header {
+        gap: 8px;
+    }
+
+    .bottom-nav {
+        padding: 6px;
+        gap: 1px;
+    }
+
+    .bottom-nav__item span:last-child {
+        font-size: 8.5px;
+    }
 }
 
 @media (max-height: 780px) {

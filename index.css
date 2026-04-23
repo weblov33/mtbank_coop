@@ -117,24 +117,41 @@ button {
 
 .series-panel {
     display: grid;
-    gap: 10px;
+    gap: 8px;
 }
 
-.series-row {
-    display: flex;
+.series-row,
+.gift-pill {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     width: fit-content;
+    max-width: min(100%, 320px);
     padding: 6px 12px 6px 6px;
+    border: 1px solid rgba(227, 233, 246, 0.95);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.72);
-    box-shadow: 0 8px 24px rgba(96, 124, 185, 0.08);
+    background: #ffffff;
+    box-shadow: 0 8px 22px rgba(96, 124, 185, 0.08);
 }
 
-.series-icon {
+.gift-pill {
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.series-icon,
+.gift-pill__icon {
     width: 42px;
     height: 42px;
     flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #f3f7ff;
 }
 
 .series-icon img {
@@ -147,38 +164,37 @@ button {
 
 .series-copy p,
 .series-copy strong,
+.gift-copy,
+.gift-copy span,
+.gift-copy strong,
 .friends-label {
     margin: 0;
 }
 
-.series-label {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.1;
+.series-copy,
+.gift-copy {
+    min-width: 0;
+    display: grid;
+    gap: 3px;
 }
 
-.series-value {
+.series-label,
+.gift-label {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.15;
+    font-weight: 600;
+}
+
+.series-value,
+.gift-value {
     display: block;
     margin: 0 0 2px;
-    font-size: 28px;
-    line-height: 0.95;
+    color: var(--text);
+    font-size: 22px;
+    line-height: 1;
     font-weight: 700;
-}
-
-.gift-pill {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 14px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 8px 22px rgba(96, 124, 185, 0.08);
-    color: var(--muted);
-    font-size: 14px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    letter-spacing: -0.02em;
 }
 
 .gift-pill:hover,
@@ -186,28 +202,32 @@ button {
     transform: translateY(-1px);
     box-shadow: 0 12px 24px rgba(96, 124, 185, 0.12);
     border-color: #cfdaf3;
+    outline: none;
 }
 
+.gift-pill:active {
+    transform: translateY(0);
+}
+
+.gift-value,
 .gift-pill strong {
     color: var(--accent);
 }
 
 .gift-pill__icon {
-    width: 20px;
-    height: 20px;
     color: var(--accent);
 }
 
 .gift-pill__icon svg {
-    width: 100%;
-    height: 100%;
+    width: 21px;
+    height: 21px;
     fill: currentColor;
 }
 
 .gift-pill__arrow {
     margin-left: 2px;
     color: #b2bbcf;
-    font-size: 20px;
+    font-size: 22px;
     line-height: 1;
 }
 
@@ -397,6 +417,8 @@ button {
     border-radius: 999px;
     font-size: 13px;
     font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
 }
 
 .recovery-button--ghost {
@@ -412,6 +434,24 @@ button {
 .recovery-button--primary {
     background: linear-gradient(180deg, #3286ff 0%, #1f62ea 100%);
     color: #ffffff;
+}
+
+.recovery-button:hover:not(:disabled),
+.recovery-button:focus-visible:not(:disabled),
+.back-button:hover,
+.back-button:focus-visible,
+.rewards-screen__back:hover,
+.rewards-screen__back:focus-visible {
+    transform: translateY(-1px);
+    border-color: #cfdaf3;
+    box-shadow: 0 10px 22px rgba(96, 124, 185, 0.1);
+    outline: none;
+}
+
+.recovery-button:active:not(:disabled),
+.back-button:active,
+.rewards-screen__back:active {
+    transform: translateY(0);
 }
 
 .demo-banner {
@@ -566,6 +606,19 @@ button {
     color: var(--accent);
     font-size: 12px;
     font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+}
+
+.info-button:hover,
+.info-button:focus-visible {
+    border-color: #cfdaf3;
+    background: #f6f9ff;
+    outline: none;
+}
+
+.info-button:active {
+    transform: scale(0.96);
 }
 
 .activity-popover {
@@ -663,7 +716,15 @@ button {
     background: #ffffff;
     color: var(--text);
     text-align: left;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    cursor: pointer;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+
+.game-option:hover,
+.game-option:focus-visible {
+    border-color: #cfdaf3;
+    background: #f9fbff;
+    outline: none;
 }
 
 .game-option.is-selected {
@@ -711,9 +772,27 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
+    padding: 0 20px;
+    border: 1px solid rgba(32, 103, 235, 0.22);
+    border-radius: var(--radius-lg);
     background: linear-gradient(180deg, #3286ff 0%, #1f62ea 100%);
     color: #ffffff;
+    box-shadow: 0 16px 30px rgba(45, 120, 255, 0.24);
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.play-button:hover,
+.play-button:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 34px rgba(45, 120, 255, 0.28);
+    outline: none;
+}
+
+.play-button:active {
+    transform: translateY(0);
+    filter: brightness(0.98);
 }
 
 .play-button.is-hidden {
@@ -731,8 +810,9 @@ button {
 }
 
 .play-button__icon {
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 auto;
     display: grid;
     place-items: center;
 }
@@ -751,16 +831,17 @@ button {
 
 .play-button span:last-child {
     font-size: 18px;
+    line-height: 1;
     font-weight: 700;
 }
 
 .bottom-nav {
-    min-height: 64px;
+    min-height: 66px;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     align-items: center;
-    gap: 4px;
-    padding: 7px 8px;
+    gap: 2px;
+    padding: 8px;
     align-self: end;
     position: relative;
     z-index: 6;
@@ -768,36 +849,61 @@ button {
 
 .bottom-nav__item {
     min-width: 0;
-    min-height: 50px;
+    height: 50px;
     display: grid;
+    grid-template-rows: 23px 13px;
     place-items: center;
-    gap: 3px;
-    border-radius: 16px;
+    align-content: center;
+    gap: 4px;
+    padding: 5px 2px;
+    border: 1px solid transparent;
+    border-radius: 15px;
     background: transparent;
     color: #9aa5bb;
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
 
 .bottom-nav__item:hover,
 .bottom-nav__item:focus-visible {
     background: rgba(237, 244, 255, 0.78);
+    outline: none;
 }
 
 .bottom-nav__item.is-active {
-    background: #edf4ff;
+    border-color: #dce8ff;
+    background: linear-gradient(180deg, #ffffff 0%, #edf4ff 100%);
     color: var(--accent);
 }
 
+.bottom-nav__item:active {
+    transform: scale(0.98);
+}
+
 .bottom-nav__icon {
-    font-size: 20px;
+    width: 23px;
+    height: 23px;
+    display: grid;
+    place-items: center;
     line-height: 1;
+}
+
+.bottom-nav__icon svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .bottom-nav__item span:last-child {
     font-size: 10px;
-    line-height: 1;
+    line-height: 1.05;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .rewards-screen {
@@ -857,6 +963,8 @@ button {
 
 .rewards-screen__back {
     color: var(--text);
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
 .rewards-balance {
@@ -1134,6 +1242,8 @@ button {
     border-radius: 999px;
     background: var(--surface);
     color: var(--text);
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
 .player-title {
@@ -1176,25 +1286,28 @@ button {
         padding: 8px 10px;
     }
 
-    .series-icon {
-        width: 36px;
-        height: 36px;
+    .series-row,
+    .gift-pill {
+        min-height: 52px;
+        padding: 6px 10px 6px 6px;
+        gap: 8px;
+    }
+
+    .series-icon,
+    .gift-pill__icon {
+        width: 38px;
+        height: 38px;
     }
 
     .series-label,
+    .gift-label,
     .friends-label {
-        font-size: 13px;
-    }
-
-    .series-value {
-        font-size: 22px;
-    }
-
-    .gift-pill {
-        min-height: 40px;
-        padding: 0 12px;
-        gap: 8px;
         font-size: 12px;
+    }
+
+    .series-value,
+    .gift-value {
+        font-size: 20px;
     }
 
     .friend-avatar {
@@ -1325,13 +1438,12 @@ button {
 
     .play-button {
         min-height: 56px;
+        gap: 9px;
     }
 
     .play-button__icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 12px;
-        font-size: 18px;
+        width: 32px;
+        height: 32px;
     }
 
     .play-button span:last-child {
@@ -1339,7 +1451,24 @@ button {
     }
 
     .bottom-nav {
+        min-height: 62px;
+        padding: 7px;
         border-radius: 24px;
+    }
+
+    .bottom-nav__item {
+        height: 48px;
+        border-radius: 14px;
+    }
+
+    .bottom-nav__icon,
+    .bottom-nav__icon svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .bottom-nav__item span:last-child {
+        font-size: 9px;
     }
 
     .rewards-screen {

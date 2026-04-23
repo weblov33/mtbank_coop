@@ -1,9 +1,9 @@
 const BOARD_WIDTH = 360;
 const BOARD_HEIGHT = 576;
-const DOODLER_WIDTH = 68;
-const DOODLER_HEIGHT = 68;
-const PLATFORM_WIDTH = 78;
-const PLATFORM_HEIGHT = 28;
+const DOODLER_WIDTH = 88;
+const DOODLER_HEIGHT = 90;
+const PLATFORM_WIDTH = 94;
+const PLATFORM_HEIGHT = 38;
 const MOVE_SPEED = 4.8;
 const INITIAL_VELOCITY_Y = -10.5;
 const GRAVITY = 0.35;
@@ -64,8 +64,8 @@ class DoodleJumpGame {
         mascot.addEventListener("load", rerender);
         platform.addEventListener("load", rerender);
 
-        mascot.src = "./jumper-mascot.png";
-        platform.src = "./jumper-platform.webp";
+        mascot.src = "../../mascot/SVG/прыжок.svg";
+        platform.src = "../../games_assest/джампер/джампер плитка.webp";
 
         return { mascot, platform };
     }
@@ -432,18 +432,26 @@ class DoodleJumpGame {
             this.context.drawImage(platform.img, platform.x, platform.y, platform.width, platform.height);
         }
 
+        const mascot = this.images.mascot;
+        const mascotWidth = mascot.naturalWidth || this.doodler.width;
+        const mascotHeight = mascot.naturalHeight || this.doodler.height;
+        const mascotRatio = mascotWidth / mascotHeight;
+        const drawHeight = this.doodler.height;
+        const drawWidth = drawHeight * mascotRatio;
+        const offsetX = (this.doodler.width - drawWidth) / 2;
+
         this.context.save();
         if (this.doodler.facing < 0) {
-            this.context.translate(this.doodler.x + this.doodler.width, this.doodler.y);
+            this.context.translate(this.doodler.x + this.doodler.width - offsetX, this.doodler.y);
             this.context.scale(-1, 1);
-            this.context.drawImage(this.images.mascot, 0, 0, this.doodler.width, this.doodler.height);
+            this.context.drawImage(this.images.mascot, 0, 0, drawWidth, drawHeight);
         } else {
             this.context.drawImage(
                 this.images.mascot,
-                this.doodler.x,
+                this.doodler.x + offsetX,
                 this.doodler.y,
-                this.doodler.width,
-                this.doodler.height
+                drawWidth,
+                drawHeight
             );
         }
         this.context.restore();

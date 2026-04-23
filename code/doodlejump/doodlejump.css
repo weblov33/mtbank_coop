@@ -50,10 +50,10 @@ button {
     height: 100dvh;
     width: 100vw;
     padding:
-        max(10px, env(safe-area-inset-top))
-        max(12px, env(safe-area-inset-right))
-        max(12px, env(safe-area-inset-bottom))
-        max(12px, env(safe-area-inset-left));
+        max(8px, env(safe-area-inset-top))
+        max(10px, env(safe-area-inset-right))
+        max(10px, env(safe-area-inset-bottom))
+        max(10px, env(safe-area-inset-left));
 }
 
 .game-screen {
@@ -61,16 +61,15 @@ button {
     height: 100%;
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
-    gap: 16px;
+    gap: 10px;
     overflow: hidden;
-    padding-bottom: 4px;
 }
 
 .top-stats {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: start;
-    gap: 12px;
+    gap: 8px;
 }
 
 .stat-card,
@@ -86,15 +85,16 @@ button {
 
 .stat-card,
 .score-card {
-    min-height: 90px;
+    min-height: 68px;
 }
 
 .stat-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
     text-align: center;
+    padding: 12px 10px 10px;
 }
 
 .stat-card p,
@@ -104,13 +104,14 @@ button {
 }
 
 .stat-pill {
-    min-width: 150px;
-    min-height: 62px;
-    padding: 0 20px;
+    min-width: 0;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 14px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     border-radius: 999px;
     background: var(--surface-solid);
     box-shadow: inset 0 0 0 1px rgba(47, 128, 255, 0.06);
@@ -118,56 +119,75 @@ button {
 
 .stat-pill strong,
 .score-card strong {
-    font-size: 32px;
+    font-size: 23px;
     line-height: 1;
     font-weight: 700;
     color: var(--text);
 }
 
 .stat-icon {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     color: var(--accent);
 }
 
-.stat-icon svg,
-.mission-icon svg {
+.stat-icon img,
+.mission-icon img {
     width: 100%;
     height: 100%;
-    fill: currentColor;
+    object-fit: contain;
+    display: block;
 }
 
 .stat-card p,
 .score-card p {
     color: var(--muted);
-    font-size: 15px;
+    font-size: 11px;
+    line-height: 1.15;
 }
 
 .score-card {
-    padding-top: 10px;
+    min-width: 92px;
+    padding: 10px 12px 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 6px;
 }
 
 .board-stage {
+    display: grid;
+    place-items: center;
     position: relative;
     border-radius: var(--radius-xl);
-    overflow: hidden;
     background:
         radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0)),
         linear-gradient(180deg, rgba(247, 251, 255, 0.72), rgba(223, 236, 255, 0.84));
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.65), var(--shadow);
     min-height: 0;
+    padding: 10px;
+}
+
+.board-frame {
+    position: relative;
+    width: min(100%, 320px);
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 360 / 576;
+    border-radius: 32px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0)),
+        linear-gradient(180deg, rgba(247, 251, 255, 0.72), rgba(223, 236, 255, 0.84));
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.72);
 }
 
 #board {
     display: block;
     width: 100%;
     height: 100%;
-    background-image: url("./jumper-bg.webp");
+    background-image: url("../../games_assest/джампер/джампер фон.webp");
     background-size: cover;
     background-position: center;
 }
@@ -211,14 +231,14 @@ button {
 }
 
 .overlay-content {
-    max-width: 280px;
-    padding: 24px 22px;
+    max-width: 250px;
+    padding: 20px 18px;
     text-align: center;
 }
 
 .overlay-title {
     margin: 4px 0 10px;
-    font-size: 34px;
+    font-size: 28px;
     font-weight: 700;
 }
 
@@ -234,7 +254,7 @@ button {
 .overlay-copy {
     margin: 0 0 18px;
     color: var(--muted);
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.4;
 }
 
@@ -252,12 +272,12 @@ button {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
 .circle-button {
-    width: 82px;
-    height: 82px;
+    width: 66px;
+    height: 66px;
     border: 0;
     display: grid;
     place-items: center;
@@ -330,24 +350,25 @@ button {
 }
 
 .mission-card {
-    min-height: 98px;
-    padding: 18px 20px;
+    min-height: 72px;
+    padding: 12px 14px;
 }
 
 .mission-copy {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
+    gap: 8px;
+    margin-bottom: 10px;
 }
 
 .mission-copy p {
-    font-size: 15px;
+    font-size: 12px;
+    line-height: 1.2;
 }
 
 .mission-icon {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     flex: 0 0 auto;
     color: var(--accent);
 }
@@ -355,12 +376,12 @@ button {
 .progress-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 14px;
+    gap: 10px;
     align-items: center;
 }
 
 .progress-track {
-    height: 18px;
+    height: 14px;
     border-radius: 999px;
     background: rgba(47, 128, 255, 0.12);
     overflow: hidden;
@@ -376,7 +397,7 @@ button {
 
 .progress-value {
     color: var(--accent);
-    font-size: 15px;
+    font-size: 12px;
 }
 
 #restartButton {
@@ -386,66 +407,93 @@ button {
 @media (max-width: 480px), (max-height: 780px) {
     .app-shell {
         padding:
-            max(8px, env(safe-area-inset-top))
-            max(10px, env(safe-area-inset-right))
-            max(10px, env(safe-area-inset-bottom))
-            max(10px, env(safe-area-inset-left));
+            max(6px, env(safe-area-inset-top))
+            max(8px, env(safe-area-inset-right))
+            max(8px, env(safe-area-inset-bottom))
+            max(8px, env(safe-area-inset-left));
     }
 
     .game-screen {
-        gap: 12px;
+        gap: 8px;
     }
 
     .top-stats {
-        gap: 10px;
+        gap: 6px;
     }
 
-    .stat-pill {
-        min-width: 0;
-        width: 100%;
-        min-height: 56px;
-        padding: 0 14px;
+    .stat-card,
+    .score-card {
+        min-height: 62px;
     }
 
     .stat-pill strong,
     .score-card strong {
-        font-size: 26px;
+        font-size: 21px;
     }
 
     .stat-card p,
     .score-card p {
-        font-size: 13px;
+        font-size: 10px;
     }
 
     .overlay-content {
-        max-width: 250px;
-        padding: 22px 18px;
+        max-width: 228px;
+        padding: 18px 16px;
     }
 
     .overlay-title {
-        font-size: 28px;
+        font-size: 24px;
     }
 
-    .bottom-bar {
-        gap: 10px;
+    .board-stage {
+        padding: 8px 8px 10px;
     }
 
-    .circle-button {
-        width: 72px;
-        height: 72px;
+    .board-frame {
+        width: min(100%, 296px);
+        border-radius: 28px;
     }
 
     .mission-card {
-        min-height: 88px;
-        padding: 16px;
+        min-height: 68px;
+        padding: 10px 12px;
     }
 
     .mission-copy {
-        margin-bottom: 12px;
+        margin-bottom: 8px;
     }
 
     .mission-copy p,
     .progress-value {
-        font-size: 14px;
+        font-size: 11px;
+    }
+
+    .circle-button {
+        width: 58px;
+        height: 58px;
+    }
+
+    .circle-button__icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .circle-button__icon--pause::before,
+    .circle-button__icon--pause::after {
+        top: 3px;
+        width: 5px;
+        height: 22px;
+    }
+
+    .circle-button__icon--back::before {
+        top: 12px;
+        width: 19px;
+        height: 4px;
+    }
+
+    .circle-button__icon--back::after {
+        top: 7px;
+        width: 14px;
+        height: 14px;
     }
 }

@@ -23,6 +23,7 @@ window.addEventListener("load", () => {
     const frame = document.getElementById("gameFrame");
     const title = document.getElementById("gameTitle");
     const playButton = document.getElementById("playButton");
+    const gamesSheet = document.getElementById("gamesSheet");
     const backButton = document.getElementById("backButton");
     const gameButtons = [...document.querySelectorAll(".game-option")];
 
@@ -53,6 +54,19 @@ window.addEventListener("load", () => {
         playerScreen.classList.remove("is-hidden");
     }
 
+    function toggleGamesSheet(forceOpen) {
+        if (!gamesSheet) {
+            return;
+        }
+
+        const shouldOpen = typeof forceOpen === "boolean"
+            ? forceOpen
+            : gamesSheet.classList.contains("is-collapsed");
+
+        gamesSheet.classList.toggle("is-collapsed", !shouldOpen);
+        playButton.setAttribute("aria-expanded", String(shouldOpen));
+    }
+
     function closeGame() {
         frame.src = games[selectedGameId].url;
         playerScreen.classList.add("is-hidden");
@@ -73,7 +87,7 @@ window.addEventListener("load", () => {
     }
 
     playButton.addEventListener("click", () => {
-        openGame(selectedGameId);
+        toggleGamesSheet();
     });
 
     backButton.addEventListener("click", () => {
@@ -81,4 +95,5 @@ window.addEventListener("load", () => {
     });
 
     selectGame(selectedGameId);
+    toggleGamesSheet(false);
 });

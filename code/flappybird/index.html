@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -10,23 +10,51 @@
     <body>
         <main class="app-shell">
             <section class="game-card">
-                <div class="hud-row">
-                    <span class="hud-pill"><strong id="scoreValue">0</strong></span>
-                    <button class="secondary-button" type="button" id="restartButton">Reset</button>
-                    <span class="hud-pill"><strong id="bestScoreValue">0</strong></span>
-                </div>
+                <section class="stats-grid" aria-label="Статистика игры">
+                    <article class="stat-card">
+                        <div class="stat-icon-wrap">
+                            <img class="stat-icon" src="../../assets_home/огонек.svg" alt="" aria-hidden="true">
+                        </div>
+                        <strong class="stat-value" id="bestScoreValue">0</strong>
+                        <span class="stat-label">Рекорд</span>
+                    </article>
+
+                    <article class="stat-card stat-card--score">
+                        <strong class="stat-value stat-value--primary" id="scoreValue">0</strong>
+                        <span class="stat-label">Очки</span>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon-wrap">
+                            <img class="stat-icon" src="../../assets_home/молния.svg" alt="" aria-hidden="true">
+                        </div>
+                        <strong class="stat-value">+0</strong>
+                        <span class="stat-label">Молнии</span>
+                    </article>
+                </section>
 
                 <section class="board-panel">
                     <canvas id="board" aria-label="Flappy Bird game board"></canvas>
                     <button class="board-tap-layer" type="button" id="tapLayer" aria-label="Tap to flap"></button>
                     <div class="board-overlay" id="gameOverlay">
                         <div class="overlay-content">
-                            <button class="primary-button" type="button" id="startButton">Start</button>
-                            <p class="overlay-title is-hidden" id="overlayTitle">Ready</p>
-                            <p class="overlay-copy is-hidden" id="overlayText">Tap anywhere to start.</p>
+                            <p class="overlay-title" id="overlayTitle">Готовы</p>
+                            <p class="overlay-copy" id="overlayText">Коснитесь, чтобы взлететь</p>
+                            <button class="primary-button" type="button" id="startButton">Старт</button>
                         </div>
                     </div>
                 </section>
+
+                <footer class="control-bar">
+                    <div class="control-hint" aria-hidden="true">
+                        <span class="control-icon">↑</span>
+                        <span class="control-copy">Касание = взлет</span>
+                    </div>
+
+                    <button class="secondary-button" type="button" id="restartButton" aria-label="Перезапустить игру">
+                        ↻
+                    </button>
+                </footer>
             </section>
         </main>
     </body>

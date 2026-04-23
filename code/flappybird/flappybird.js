@@ -12,6 +12,8 @@ const MAX_FALL_SPEED = 7.2;
 const PIPE_GAP = 168;
 const BIRD_HITBOX_SCALE = 0.82;
 const STORAGE_KEY = "mtbank-flappybird-best";
+const BIRD_RENDER_SCALE_X = 1.34;
+const BIRD_RENDER_SCALE_Y = 1.08;
 
 class FlappyBirdGame {
     constructor() {
@@ -49,7 +51,7 @@ class FlappyBirdGame {
         this.bindEvents();
         this.reset();
         this.render();
-        this.showOverlay("Ready", "");
+        this.showOverlay("Готовы", "Коснитесь, чтобы взлететь");
     }
 
     bindEvents() {
@@ -91,7 +93,7 @@ class FlappyBirdGame {
 
         document.addEventListener("visibilitychange", () => {
             if (document.hidden && this.gameStarted && !this.gameOver) {
-                this.finish("Game Over. Tap start to try again.");
+                this.finish("Игра окончена. Нажмите старт, чтобы попробовать снова.");
             }
         });
     }
@@ -131,7 +133,7 @@ class FlappyBirdGame {
         }
 
         this.render();
-        this.showOverlay("Ready", "");
+        this.showOverlay("Готовы", "Коснитесь, чтобы взлететь");
     }
 
     start() {
@@ -218,7 +220,7 @@ class FlappyBirdGame {
         this.bird.y = Math.max(this.bird.y + this.velocityY * deltaTime, 0);
 
         if (this.bird.y > BOARD_HEIGHT) {
-            this.finish("Game Over. Tap start to try again.");
+            this.finish("Игра окончена. Нажмите старт, чтобы попробовать снова.");
             return;
         }
 
@@ -231,7 +233,7 @@ class FlappyBirdGame {
             }
 
             if (this.detectCollision(this.bird, pipe)) {
-                this.finish("Game Over. Tap start to try again.");
+                this.finish("Игра окончена. Нажмите старт, чтобы попробовать снова.");
                 return;
             }
         }
@@ -250,7 +252,7 @@ class FlappyBirdGame {
         this.bestScore = Math.max(this.bestScore, Math.floor(this.score));
         this.saveBestScore();
         this.updateHud();
-        this.showOverlay("Game Over", message);
+        this.showOverlay("Игра окончена", message);
 
         if (this.pipeTimer) {
             clearInterval(this.pipeTimer);
@@ -281,7 +283,7 @@ class FlappyBirdGame {
         this.overlayTitle.textContent = title;
         this.overlayText.textContent = text;
         this.overlay.classList.remove("is-hidden");
-        this.startButton.textContent = this.gameOver ? "Play Again" : "Start";
+        this.startButton.textContent = this.gameOver ? "Играть снова" : "Старт";
     }
 
     hideOverlay() {
@@ -310,17 +312,18 @@ class FlappyBirdGame {
             this.context.drawImage(this.pipeSprite, pipe.x, pipe.y, pipe.width, pipe.height);
         }
 
+        const renderBirdWidth = this.bird.width * BIRD_RENDER_SCALE_X;
+        const renderBirdHeight = this.bird.height * BIRD_RENDER_SCALE_Y;
+        const renderBirdX = this.bird.x - (renderBirdWidth - this.bird.width) / 2;
+        const renderBirdY = this.bird.y - (renderBirdHeight - this.bird.height) / 2;
+
         this.context.drawImage(
             this.birdSprite,
-            this.bird.x,
-            this.bird.y,
-            this.bird.width,
-            this.bird.height
+            renderBirdX,
+            renderBirdY,
+            renderBirdWidth,
+            renderBirdHeight
         );
-
-        this.context.fillStyle = "#ffffff";
-        this.context.font = "32px Arial";
-        this.context.fillText(String(Math.floor(this.score)), 16, 40);
     }
 }
 

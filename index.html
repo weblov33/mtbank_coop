@@ -15,11 +15,11 @@
                         <section class="series-panel">
                             <div class="series-row">
                                 <span class="series-icon" aria-hidden="true">
-                                    <img src="./assets_home/огонек.svg" alt="">
+                                    <img src="./assets_home/огонек.svg" alt="" id="seriesFireIcon">
                                 </span>
                                 <div class="series-copy">
+                                    <strong class="series-value" id="seriesValue">12</strong>
                                     <p class="series-label">Уровень серии</p>
-                                    <strong class="series-value">12</strong>
                                 </div>
                             </div>
 
@@ -29,7 +29,7 @@
                                         <path d="M20 7h-2.2a3 3 0 0 0 .5-1.6c0-1.7-1.4-3-3-3-1.3 0-2.3.7-3.3 2.2-1-1.5-2-2.2-3.3-2.2-1.6 0-3 1.3-3 3 0 .6.2 1.1.5 1.6H4a1 1 0 0 0-1 1v3c0 .6.4 1 1 1h1v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7h1a1 1 0 0 0 1-1V8c0-.6-.4-1-1-1Zm-5-2.6c.7 0 1.2.5 1.2 1.2 0 .8-.9 1.4-2.5 1.4h-.5c.6-1.8 1.2-2.6 1.8-2.6Zm-6 0c.6 0 1.2.8 1.8 2.6h-.5c-1.6 0-2.5-.6-2.5-1.4 0-.7.5-1.2 1.2-1.2ZM5 9h6v2H5V9Zm2 4h4v6H7v-6Zm6 6v-6h4v6h-4Zm6-8h-6V9h6v2Z"/>
                                     </svg>
                                 </span>
-                                <span>До приза осталось <strong>3</strong> уровня</span>
+                                <span>До приза осталось <strong id="giftLevelsLeft">3</strong> уровня</span>
                             </div>
                         </section>
 
@@ -44,26 +44,43 @@
                     </header>
 
                     <section class="hero-panel">
-                        <div class="hero-character" aria-hidden="true">
-                            <img src="./mascot/SVG/базовый прямой.svg" alt="">
+                        <div class="hero-character" id="heroCharacter" data-mascot-state="base" aria-hidden="true">
+                            <img src="./mascot/SVG/базовый прямой.svg" alt="" id="heroMascot">
                         </div>
                     </section>
 
                     <section class="info-card activity-card">
                         <div class="section-heading">
                             <h2>Активность</h2>
-                            <span class="activity-score">60 <em>/ 100</em></span>
+                            <span class="activity-score"><span id="activityValue">60</span> <em>/ 100</em></span>
                         </div>
 
                         <div class="activity-row">
                             <div class="progress-track">
-                                <div class="progress-fill">
+                                <div class="progress-fill" id="activityFill">
                                     <span class="progress-icon" aria-hidden="true">
                                         <img src="./assets_home/молния.svg" alt="">
                                     </span>
                                 </div>
                             </div>
-                            <button class="info-button" type="button" aria-label="Информация">i</button>
+                            <button class="info-button" type="button" id="activityInfoButton" aria-label="Информация о молниях">i</button>
+                        </div>
+                    </section>
+
+                    <div class="activity-popover is-hidden" id="activityPopover" role="dialog" aria-live="polite">
+                        <p>Молнии показывают запас энергии Мобика.</p>
+                        <p>Каждый день уходит 10 молний активности.</p>
+                    </div>
+
+                    <section class="info-card recovery-card is-hidden" id="recoveryCard">
+                        <div class="section-heading">
+                            <h2>Энергия закончилась</h2>
+                            <span class="section-caption">Мобик уснул</span>
+                        </div>
+                        <p class="recovery-copy">Можно восстановиться один раз в 30 дней или начать заново: уровень обнулится, а активность вернётся на 100.</p>
+                        <div class="recovery-actions">
+                            <button class="recovery-button recovery-button--ghost" type="button" id="restoreButton">Восстановиться</button>
+                            <button class="recovery-button recovery-button--primary" type="button" id="restartProgressButton">Начать заново</button>
                         </div>
                     </section>
 

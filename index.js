@@ -221,7 +221,7 @@ window.addEventListener("load", () => {
 
     function updateHomeStats() {
         const level = getRandomInt(1, 99);
-        const activity = 0;
+        const activity = getRandomInt(0, 100);
         homeStats = { level, activity };
         applyHomeStats(level, activity);
     }

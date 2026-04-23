@@ -63,6 +63,7 @@ window.addEventListener("load", () => {
     const gamesSheet = document.getElementById("gamesSheet");
     const backButton = document.getElementById("backButton");
     const gameButtons = [...document.querySelectorAll(".game-option")];
+    const navButtons = [...document.querySelectorAll(".bottom-nav__item")];
 
     let selectedGameId = "doodlejump";
     let homeStats = null;
@@ -134,10 +135,37 @@ window.addEventListener("load", () => {
             : rewardsScreen.classList.contains("is-hidden");
 
         rewardsScreen.classList.toggle("is-hidden", !shouldOpen);
+        setActiveNav(shouldOpen ? "rewards" : "home");
         if (shouldOpen) {
             toggleGamesSheet(false);
             toggleActivityPopover(false);
         }
+    }
+
+    function setActiveNav(navId) {
+        for (const button of navButtons) {
+            const isActive = button.dataset.nav === navId;
+            button.classList.toggle("is-active", isActive);
+            button.toggleAttribute("aria-current", isActive);
+        }
+    }
+
+    function handleNavClick(navId) {
+        if (navId === "rewards") {
+            toggleRewardsScreen(true);
+            return;
+        }
+
+        if (navId === "home") {
+            toggleRewardsScreen(false);
+            return;
+        }
+
+        if (rewardsScreen) {
+            rewardsScreen.classList.add("is-hidden");
+        }
+
+        setActiveNav(navId);
     }
 
     function selectGame(gameId) {
@@ -304,7 +332,7 @@ window.addEventListener("load", () => {
 
     function applyHomeStats(level, activity) {
         const levelsLeft = ((Math.ceil(level / 5) * 5) + 5) - level;
-        let mascotSrc = "./mascot/SVG/базовый прямой.svg";
+        let mascotSrc = "./mascot/SVG/базовый прямой.svg";
         let stateColor = "#2c79ff";
         let mascotState = "base";
         let fireFilter = "none";
@@ -455,6 +483,12 @@ window.addEventListener("load", () => {
         button.addEventListener("click", () => {
             selectGame(button.dataset.game);
             openGame(button.dataset.game);
+        });
+    }
+
+    for (const button of navButtons) {
+        button.addEventListener("click", () => {
+            handleNavClick(button.dataset.nav);
         });
     }
 

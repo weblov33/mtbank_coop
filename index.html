@@ -47,7 +47,7 @@
                     <section class="hero-panel">
                         <div class="hero-character" id="heroCharacter" data-mascot-state="base" aria-hidden="true">
                             <span class="hero-shadow"></span>
-                            <img src="./mascot/SVG/базовый прямой.svg" alt="" id="heroMascot">
+                            <img src="./mascot/SVG/базовый прямой.svg" alt="" id="heroMascot">
                         </div>
                     </section>
 
@@ -167,9 +167,28 @@
                         </div>
                     </section>
 
-                    <div class="bottom-nav bottom-nav--image" aria-label="Нижняя навигация">
-                        <img src="./reff_screen/home-bottom-nav.png" alt="Главная, Задания, Подарки, Рейтинг, Профиль">
-                    </div>
+                    <nav class="bottom-nav" aria-label="Нижняя навигация">
+                        <button class="bottom-nav__item is-active" type="button" data-nav="home">
+                            <span class="bottom-nav__icon" aria-hidden="true">⌂</span>
+                            <span>Главная</span>
+                        </button>
+                        <button class="bottom-nav__item" type="button" data-nav="tasks">
+                            <span class="bottom-nav__icon" aria-hidden="true">✓</span>
+                            <span>Задания</span>
+                        </button>
+                        <button class="bottom-nav__item" type="button" data-nav="rewards">
+                            <span class="bottom-nav__icon" aria-hidden="true">□</span>
+                            <span>Подарки</span>
+                        </button>
+                        <button class="bottom-nav__item" type="button" data-nav="rating">
+                            <span class="bottom-nav__icon" aria-hidden="true">☆</span>
+                            <span>Рейтинг</span>
+                        </button>
+                        <button class="bottom-nav__item" type="button" data-nav="profile">
+                            <span class="bottom-nav__icon" aria-hidden="true">◦</span>
+                            <span>Профиль</span>
+                        </button>
+                    </nav>
                 </section>
 
                 <section class="rewards-screen is-hidden" id="rewardsScreen" aria-labelledby="rewardsTitle">
@@ -193,7 +212,7 @@
                                 <p>Обменивай<br>молнии на бонусы<br>и приятные призы <img src="./assets_home/молния.svg" alt=""></p>
                             </div>
                             <div class="rewards-hero__mascot" aria-hidden="true">
-                                <img src="./mascot/SVG/базовый прямой.svg" alt="">
+                                <img src="./mascot/SVG/базовый прямой.svg" alt="">
                             </div>
                         </section>
 
@@ -218,9 +237,28 @@
                             <p>Выполняй задания и повышай уровень, чтобы открывать больше подарков!</p>
                         </section>
 
-                        <div class="bottom-nav bottom-nav--image rewards-bottom-nav" aria-hidden="true">
-                            <img src="./reff_screen/home-bottom-nav.png" alt="">
-                        </div>
+                        <nav class="bottom-nav rewards-bottom-nav" aria-label="Нижняя навигация">
+                            <button class="bottom-nav__item" type="button" data-nav="home">
+                                <span class="bottom-nav__icon" aria-hidden="true">⌂</span>
+                                <span>Главная</span>
+                            </button>
+                            <button class="bottom-nav__item" type="button" data-nav="tasks">
+                                <span class="bottom-nav__icon" aria-hidden="true">✓</span>
+                                <span>Задания</span>
+                            </button>
+                            <button class="bottom-nav__item is-active" type="button" data-nav="rewards">
+                                <span class="bottom-nav__icon" aria-hidden="true">□</span>
+                                <span>Подарки</span>
+                            </button>
+                            <button class="bottom-nav__item" type="button" data-nav="rating">
+                                <span class="bottom-nav__icon" aria-hidden="true">☆</span>
+                                <span>Рейтинг</span>
+                            </button>
+                            <button class="bottom-nav__item" type="button" data-nav="profile">
+                                <span class="bottom-nav__icon" aria-hidden="true">◦</span>
+                                <span>Профиль</span>
+                            </button>
+                        </nav>
                     </div>
                 </section>
             </section>

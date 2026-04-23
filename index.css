@@ -779,8 +779,8 @@ button {
 .rewards-screen__surface {
     height: 100%;
     overflow-y: auto;
-    padding: 20px 18px 18px;
-    border-radius: 36px;
+    padding: 14px 14px 14px;
+    border-radius: 28px;
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.18)),
         url("./assets_home/дом фон.webp") center top / cover no-repeat,
@@ -792,25 +792,25 @@ button {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
 .rewards-screen__header h1 {
     margin: 0;
-    font-size: 32px;
+    font-size: 22px;
     line-height: 1;
     text-align: center;
 }
 
 .rewards-screen__back,
 .rewards-balance {
-    min-height: 44px;
+    min-height: 34px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 0 14px;
+    gap: 6px;
+    padding: 0 10px;
     border: 1px solid var(--line);
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.92);
@@ -823,110 +823,110 @@ button {
 
 .rewards-balance {
     color: var(--text);
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
 }
 
 .rewards-balance img {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
 }
 
 .rewards-hero {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 0.95fr;
-    gap: 16px;
+    gap: 10px;
     align-items: center;
-    margin-bottom: 28px;
+    margin-bottom: 18px;
 }
 
 .rewards-hero__copy {
-    padding: 18px 16px;
-    border-radius: 26px;
+    padding: 12px 12px;
+    border-radius: 20px;
     background: rgba(255, 255, 255, 0.92);
     box-shadow: 0 14px 28px rgba(96, 124, 185, 0.08);
 }
 
 .rewards-hero__badge {
-    width: 54px;
-    height: 54px;
+    width: 38px;
+    height: 38px;
     display: inline-grid;
     place-items: center;
-    margin-bottom: 12px;
-    border-radius: 18px;
+    margin-bottom: 8px;
+    border-radius: 14px;
     background: #edf4ff;
     color: var(--accent);
 }
 
 .rewards-hero__badge svg {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     fill: currentColor;
 }
 
 .rewards-hero__copy p {
     margin: 0;
     color: #5d6d90;
-    font-size: 15px;
-    line-height: 1.45;
+    font-size: 12px;
+    line-height: 1.35;
     font-weight: 600;
 }
 
 .rewards-hero__copy p img {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     vertical-align: -2px;
 }
 
 .rewards-hero__mascot {
-    min-height: 240px;
+    min-height: 150px;
     display: grid;
     place-items: end center;
 }
 
 .rewards-hero__mascot img {
     width: 100%;
-    max-width: 220px;
+    max-width: 145px;
     object-fit: contain;
     filter: drop-shadow(0 16px 24px rgba(56, 119, 227, 0.16));
 }
 
 .rewards-section {
-    margin-bottom: 26px;
+    margin-bottom: 18px;
 }
 
 .rewards-section__header {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 14px;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .rewards-section__header h2 {
     margin: 0;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .rewards-section__hint {
     color: var(--muted);
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .rewards-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 9px;
 }
 
 .reward-card {
-    min-height: 212px;
+    min-height: 154px;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    gap: 14px;
-    padding: 14px;
+    gap: 8px;
+    padding: 10px;
     border: 1px solid rgba(223, 231, 246, 0.95);
-    border-radius: 26px;
+    border-radius: 18px;
     box-shadow: 0 14px 28px rgba(96, 124, 185, 0.08);
 }
 
@@ -970,34 +970,34 @@ button {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 10px;
+    gap: 8px;
 }
 
 .reward-card__sparkle {
     color: #d6e2ff;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1;
 }
 
 .reward-card__lock {
     color: #aeb7cd;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1;
 }
 
 .reward-card__icon {
-    width: 72px;
-    height: 72px;
+    width: 48px;
+    height: 48px;
     margin: 0 auto;
     display: grid;
     place-items: center;
-    border-radius: 22px;
+    border-radius: 16px;
     color: currentColor;
 }
 
 .reward-card__icon svg {
-    width: 58px;
-    height: 58px;
+    width: 38px;
+    height: 38px;
     display: block;
     filter: drop-shadow(0 10px 14px rgba(76, 115, 186, 0.12));
 }
@@ -1005,38 +1005,38 @@ button {
 .reward-card__copy {
     display: grid;
     align-content: start;
-    gap: 6px;
+    gap: 4px;
     text-align: center;
 }
 
 .reward-card__title {
     margin: 0;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 1.2;
 }
 
 .reward-card__subtitle {
     margin: 0;
     color: var(--muted);
-    font-size: 13px;
+    font-size: 11px;
     line-height: 1.25;
 }
 
 .reward-card__meta {
-    min-height: 50px;
+    min-height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     border-top: 1px solid rgba(222, 230, 244, 0.92);
     color: #4d5c81;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
 }
 
 .reward-card__meta img {
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
 }
 
 .reward-card__meta strong {
@@ -1046,23 +1046,23 @@ button {
 .rewards-note {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 26px;
-    padding: 14px 16px;
-    border-radius: 24px;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    border-radius: 18px;
     background: rgba(234, 241, 255, 0.78);
     color: #7b88a8;
 }
 
 .rewards-note p {
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.35;
     font-weight: 600;
 }
 
 .rewards-note__lock {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .rewards-bottom-nav {
@@ -1309,6 +1309,123 @@ button {
     .bottom-nav {
         border-radius: 24px;
     }
+
+    .rewards-screen {
+        inset:
+            max(8px, env(safe-area-inset-top))
+            max(8px, env(safe-area-inset-right))
+            max(8px, env(safe-area-inset-bottom))
+            max(8px, env(safe-area-inset-left));
+    }
+
+    .rewards-screen__surface {
+        padding: 12px 10px;
+        border-radius: 24px;
+    }
+
+    .rewards-screen__header {
+        margin-bottom: 10px;
+    }
+
+    .rewards-screen__header h1 {
+        font-size: 20px;
+    }
+
+    .rewards-screen__back,
+    .rewards-balance {
+        min-height: 32px;
+        padding: 0 9px;
+        font-size: 12px;
+    }
+
+    .rewards-hero {
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .rewards-hero__copy {
+        padding: 10px;
+        border-radius: 18px;
+    }
+
+    .rewards-hero__badge {
+        width: 34px;
+        height: 34px;
+        margin-bottom: 6px;
+    }
+
+    .rewards-hero__copy p {
+        font-size: 11px;
+    }
+
+    .rewards-hero__mascot {
+        min-height: 120px;
+    }
+
+    .rewards-hero__mascot img {
+        max-width: 120px;
+    }
+
+    .rewards-section {
+        margin-bottom: 14px;
+    }
+
+    .rewards-section__header {
+        margin-bottom: 8px;
+    }
+
+    .rewards-section__header h2 {
+        font-size: 14px;
+    }
+
+    .rewards-section__hint {
+        font-size: 10px;
+    }
+
+    .rewards-grid {
+        gap: 8px;
+    }
+
+    .reward-card {
+        min-height: 136px;
+        padding: 8px;
+        border-radius: 16px;
+        gap: 7px;
+    }
+
+    .reward-card__icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+    }
+
+    .reward-card__icon svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .reward-card__title {
+        font-size: 11px;
+    }
+
+    .reward-card__subtitle {
+        font-size: 10px;
+    }
+
+    .reward-card__meta {
+        min-height: 30px;
+        font-size: 11px;
+    }
+
+    .rewards-note {
+        margin-bottom: 12px;
+        padding: 8px 10px;
+        border-radius: 16px;
+    }
+
+    .rewards-note p {
+        font-size: 11px;
+    }
 }
 
 @media (max-height: 780px) {
@@ -1335,5 +1452,13 @@ button {
 
     .play-button {
         min-height: 54px;
+    }
+
+    .rewards-hero__mascot {
+        min-height: 110px;
+    }
+
+    .reward-card {
+        min-height: 128px;
     }
 }

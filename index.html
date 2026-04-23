@@ -11,164 +11,269 @@
         <main class="app-shell">
             <section class="menu-screen" id="menuScreen">
                 <section class="home-surface">
-                    <header class="home-header">
-                        <section class="series-panel">
-                            <div class="series-row">
-                                <span class="series-icon" aria-hidden="true">
-                                    <img src="./assets_home/огонек.svg" alt="" id="seriesFireIcon">
-                                </span>
-                                <div class="series-copy">
-                                    <strong class="series-value" id="seriesValue">12</strong>
-                                    <p class="series-label">Уровень серии</p>
+                    <div class="tab-content">
+                        <section class="tab-panel home-tab is-active" id="homePanel" data-panel="home">
+                            <header class="home-header">
+                                <section class="series-panel">
+                                    <div class="series-row">
+                                        <span class="series-icon" aria-hidden="true">
+                                            <img src="./assets_home/огонек.svg" alt="" id="seriesFireIcon">
+                                        </span>
+                                        <div class="series-copy">
+                                            <strong class="series-value" id="seriesValue">12</strong>
+                                            <p class="series-label">Уровень серии</p>
+                                        </div>
+                                    </div>
+
+                                    <button class="gift-pill" type="button" id="giftPillButton" aria-label="Перейти к подаркам">
+                                        <span class="gift-pill__icon" aria-hidden="true">
+                                            <svg viewBox="0 0 24 24" role="presentation">
+                                                <path d="M20 7h-2.2a3 3 0 0 0 .5-1.6c0-1.7-1.4-3-3-3-1.3 0-2.3.7-3.3 2.2-1-1.5-2-2.2-3.3-2.2-1.6 0-3 1.3-3 3 0 .6.2 1.1.5 1.6H4a1 1 0 0 0-1 1v3c0 .6.4 1 1 1h1v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7h1a1 1 0 0 0 1-1V8c0-.6-.4-1-1-1Z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="gift-copy">
+                                            <span class="gift-label">До приза осталось</span>
+                                            <strong class="gift-value"><span id="giftLevelsLeft">3</span> <span id="giftLevelsWord">уровня</span></strong>
+                                        </span>
+                                        <span class="gift-pill__arrow" aria-hidden="true">›</span>
+                                    </button>
+                                </section>
+
+                                <section class="friends-panel" aria-label="Друзья">
+                                    <div class="friends-stack" aria-hidden="true">
+                                        <span class="friend-avatar friend-avatar--one"></span>
+                                        <span class="friend-avatar friend-avatar--two"></span>
+                                        <span class="friend-avatar friend-avatar--three"></span>
+                                    </div>
+                                    <p class="friends-label">Друзья</p>
+                                </section>
+                            </header>
+
+                            <section class="hero-panel">
+                                <div class="hero-character" id="heroCharacter" data-mascot-state="base" aria-hidden="true">
+                                    <span class="hero-shadow"></span>
+                                    <img src="./mascot/SVG/базовый прямой.svg" alt="" id="heroMascot">
                                 </div>
-                            </div>
+                            </section>
 
-                            <button class="gift-pill" type="button" id="giftPillButton" aria-label="Информация о призе">
-                                <span class="gift-pill__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" role="presentation">
-                                        <path d="M20 7h-2.2a3 3 0 0 0 .5-1.6c0-1.7-1.4-3-3-3-1.3 0-2.3.7-3.3 2.2-1-1.5-2-2.2-3.3-2.2-1.6 0-3 1.3-3 3 0 .6.2 1.1.5 1.6H4a1 1 0 0 0-1 1v3c0 .6.4 1 1 1h1v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7h1a1 1 0 0 0 1-1V8c0-.6-.4-1-1-1Zm-5-2.6c.7 0 1.2.5 1.2 1.2 0 .8-.9 1.4-2.5 1.4h-.5c.6-1.8 1.2-2.6 1.8-2.6Zm-6 0c.6 0 1.2.8 1.8 2.6h-.5c-1.6 0-2.5-.6-2.5-1.4 0-.7.5-1.2 1.2-1.2ZM5 9h6v2H5V9Zm2 4h4v6H7v-6Zm6 6v-6h4v6h-4Zm6-8h-6V9h6v2Z"/>
-                                    </svg>
-                                </span>
-                                <span class="gift-copy">
-                                    <span class="gift-label">До приза осталось</span>
-                                    <strong class="gift-value"><span id="giftLevelsLeft">3</span> <span id="giftLevelsWord">уровня</span></strong>
-                                </span>
-                                <span class="gift-pill__arrow" aria-hidden="true">›</span>
-                            </button>
-                        </section>
+                            <section class="info-card recovery-card is-hidden" id="recoveryCard">
+                                <span class="recovery-badge">Сейчас офлайн</span>
+                                <div class="recovery-heading">
+                                    <h2>Мобик отдыхает</h2>
+                                    <p class="recovery-copy">Оживите его для демонстрации или начните путь заново с полным запасом молний.</p>
+                                </div>
+                                <div class="recovery-actions">
+                                    <button class="recovery-button recovery-button--ghost" type="button" id="restoreButton">Оживить</button>
+                                    <button class="recovery-button recovery-button--primary" type="button" id="restartProgressButton">Начать заново</button>
+                                </div>
+                            </section>
 
-                        <section class="friends-panel" aria-label="Друзья">
-                            <div class="friends-stack" aria-hidden="true">
-                                <span class="friend-avatar friend-avatar--one"></span>
-                                <span class="friend-avatar friend-avatar--two"></span>
-                                <span class="friend-avatar friend-avatar--three"></span>
-                            </div>
-                            <p class="friends-label">Друзья</p>
-                        </section>
-                    </header>
+                            <section class="demo-banner is-hidden" id="demoBanner" aria-live="polite">
+                                <button class="demo-banner__close" type="button" id="demoBannerClose" aria-label="Закрыть уведомление">×</button>
+                                <strong class="demo-banner__title">Мобик ожил</strong>
+                                <p class="demo-banner__copy" id="demoBannerText">Для демонстрации вы получили новый уровень и молнии.</p>
+                            </section>
 
-                    <section class="hero-panel">
-                        <div class="hero-character" id="heroCharacter" data-mascot-state="base" aria-hidden="true">
-                            <span class="hero-shadow"></span>
-                            <img src="./mascot/SVG/базовый прямой.svg" alt="" id="heroMascot">
-                        </div>
-                    </section>
-
-                    <section class="info-card recovery-card is-hidden" id="recoveryCard">
-                        <span class="recovery-badge">Сейчас офлайн</span>
-                        <div class="recovery-heading">
-                            <h2>Мобик отдыхает</h2>
-                            <p class="recovery-copy">Оживите его для демонстрации или начните путь заново с полным запасом молний.</p>
-                        </div>
-                        <div class="recovery-actions">
-                            <button class="recovery-button recovery-button--ghost" type="button" id="restoreButton">Оживить</button>
-                            <button class="recovery-button recovery-button--primary" type="button" id="restartProgressButton">Начать заново</button>
-                        </div>
-                    </section>
-
-                    <section class="demo-banner is-hidden" id="demoBanner" aria-live="polite">
-                        <button class="demo-banner__close" type="button" id="demoBannerClose" aria-label="Закрыть уведомление">×</button>
-                        <strong class="demo-banner__title">Мобик ожил</strong>
-                        <p class="demo-banner__copy" id="demoBannerText">Для демонстрации вы получили новый уровень и молнии.</p>
-                    </section>
-
-                    <section class="info-card activity-card">
-                        <div class="section-heading">
-                            <h2>Активность</h2>
-                            <span class="activity-score">
-                                <span class="activity-score__icon" aria-hidden="true">
-                                    <img src="./assets_home/молния.svg" alt="">
-                                </span>
-                                <span id="activityValue">60</span>
-                                <em>/ 100</em>
-                            </span>
-                        </div>
-
-                        <div class="activity-row">
-                            <div class="progress-track">
-                                <div class="progress-fill" id="activityFill">
-                                    <span class="progress-icon" aria-hidden="true">
-                                        <img src="./assets_home/молния.svg" alt="">
+                            <section class="info-card activity-card">
+                                <div class="section-heading">
+                                    <h2>Активность</h2>
+                                    <span class="activity-score">
+                                        <span class="activity-score__icon" aria-hidden="true">
+                                            <img src="./assets_home/молния.svg" alt="">
+                                        </span>
+                                        <span id="activityValue">60</span>
+                                        <em>/ 100</em>
                                     </span>
                                 </div>
+
+                                <div class="activity-row">
+                                    <div class="progress-track">
+                                        <div class="progress-fill" id="activityFill">
+                                            <span class="progress-icon" aria-hidden="true">
+                                                <img src="./assets_home/молния.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button class="info-button" type="button" id="activityInfoButton" aria-label="Информация о молниях">i</button>
+                                </div>
+                            </section>
+
+                            <div class="activity-popover is-hidden" id="activityPopover" role="dialog" aria-live="polite">
+                                <div class="activity-popover__header">
+                                    <span class="activity-popover__icon" aria-hidden="true">
+                                        <img src="./assets_home/молния.svg" alt="">
+                                    </span>
+                                    <strong>Как работают молнии</strong>
+                                </div>
+                                <p>Молнии показывают запас энергии Мобика.</p>
+                                <p>Каждый день уходит 10 молний активности.</p>
                             </div>
-                            <button class="info-button" type="button" id="activityInfoButton" aria-label="Информация о молниях">i</button>
-                        </div>
-                    </section>
 
-                    <div class="activity-popover is-hidden" id="activityPopover" role="dialog" aria-live="polite">
-                        <div class="activity-popover__header">
-                            <span class="activity-popover__icon" aria-hidden="true">
-                                <img src="./assets_home/молния.svg" alt="">
-                            </span>
-                            <strong>Как работают молнии</strong>
-                        </div>
-                        <p>Молнии показывают запас энергии Мобика.</p>
-                        <p>Каждый день уходит 10 молний активности.</p>
+                            <button class="play-button play-button--home" type="button" id="playButton" aria-expanded="false" aria-controls="gamesSheet">
+                                <span class="play-button__icon" aria-hidden="true">
+                                    <img src="./assets_home/иконка плей.webp" alt="">
+                                </span>
+                                <span>Играть</span>
+                            </button>
+
+                            <button class="play-button play-button--home play-button--share is-hidden" type="button" id="shareButton">
+                                <span class="play-button__icon" aria-hidden="true">
+                                    <img src="./assets_home/иконка поделиться.webp" alt="">
+                                </span>
+                                <span>Поделиться</span>
+                            </button>
+
+                            <section class="info-card games-card games-sheet is-collapsed" id="gamesSheet">
+                                <div class="section-heading">
+                                    <h2>Игры</h2>
+                                    <span class="section-caption">Выберите игру</span>
+                                </div>
+
+                                <div class="games-grid" aria-label="Список мини-игр">
+                                    <button class="game-option is-selected" type="button" data-game="doodlejump">
+                                        <span class="game-option__icon game-option__icon--image" aria-hidden="true">
+                                            <img src="./assets_home/миниигры иконки/джампер.webp" alt="">
+                                        </span>
+                                        <span class="game-option__body">
+                                            <span class="game-option__title">Doodle Jump</span>
+                                        </span>
+                                        <span class="game-option__arrow" aria-hidden="true">›</span>
+                                    </button>
+
+                                    <button class="game-option" type="button" data-game="trexrunner">
+                                        <span class="game-option__icon game-option__icon--image" aria-hidden="true">
+                                            <img src="./assets_home/миниигры иконки/дино.webp" alt="">
+                                        </span>
+                                        <span class="game-option__body">
+                                            <span class="game-option__title">T-rex Run</span>
+                                        </span>
+                                        <span class="game-option__arrow" aria-hidden="true">›</span>
+                                    </button>
+
+                                    <button class="game-option" type="button" data-game="flappybird">
+                                        <span class="game-option__icon game-option__icon--image" aria-hidden="true">
+                                            <img src="./assets_home/миниигры иконки/флэппи.webp" alt="">
+                                        </span>
+                                        <span class="game-option__body">
+                                            <span class="game-option__title">Flappy Bird</span>
+                                        </span>
+                                        <span class="game-option__arrow" aria-hidden="true">›</span>
+                                    </button>
+
+                                    <button class="game-option" type="button" data-game="2048">
+                                        <span class="game-option__icon game-option__icon--image" aria-hidden="true">
+                                            <img src="./assets_home/миниигры иконки/2048.webp" alt="">
+                                        </span>
+                                        <span class="game-option__body">
+                                            <span class="game-option__title">2048</span>
+                                        </span>
+                                        <span class="game-option__arrow" aria-hidden="true">›</span>
+                                    </button>
+                                </div>
+                            </section>
+                        </section>
+
+                        <section class="tab-panel tasks-tab is-hidden" id="tasksPanel" data-panel="tasks">
+                            <header class="tab-header">
+                                <h1>Задания</h1>
+                                <div class="tab-balance"><img src="./assets_home/молния.svg" alt=""><span data-balance>60</span></div>
+                            </header>
+                            <section class="tab-hero tab-hero--tasks">
+                                <article class="tab-hero__card">
+                                    <span class="tab-hero__icon" aria-hidden="true">🎁</span>
+                                    <p>Выполняй задания<br>и получай молнии</p>
+                                </article>
+                                <img class="tab-hero__mascot" src="./mascot/SVG/базовый прямой.svg" alt="" aria-hidden="true">
+                            </section>
+                            <div class="task-list" id="tasksList"></div>
+                        </section>
+
+                        <section class="tab-panel rewards-tab is-hidden" id="rewardsScreen" data-panel="rewards" aria-labelledby="rewardsTitle">
+                            <header class="tab-header rewards-header">
+                                <button class="rewards-screen__back" type="button" id="rewardsCloseButton">Назад</button>
+                                <h1 id="rewardsTitle">Сезон наград</h1>
+                                <div class="rewards-balance" aria-label="Текущий уровень">
+                                    <span>LVL</span>
+                                    <strong id="rewardsBalance">0</strong>
+                                </div>
+                            </header>
+
+                            <section class="battle-hero">
+                                <div>
+                                    <p class="battle-kicker">Battle pass</p>
+                                    <h2>Повышай уровень и забирай подарки</h2>
+                                    <p>Уровень растёт от серии дней и активности. Каждые 5 уровней открывается крупный приз.</p>
+                                </div>
+                                <div class="battle-progress-card">
+                                    <span>До следующего приза</span>
+                                    <strong id="battleNextPrize">5 уровней</strong>
+                                </div>
+                            </section>
+
+                            <section class="battle-pass-track" id="battlePassTrack" aria-label="Сезон наград"></section>
+
+                            <section class="rewards-note">
+                                <span class="rewards-note__lock" aria-hidden="true">✦</span>
+                                <p>Достигай новых уровней и открывай ещё больше подарков.</p>
+                            </section>
+                        </section>
+
+                        <section class="tab-panel rating-tab is-hidden" id="ratingPanel" data-panel="rating">
+                            <header class="tab-header">
+                                <h1>Рейтинг</h1>
+                                <div class="tab-balance"><img src="./assets_home/молния.svg" alt=""><span data-balance>60</span></div>
+                            </header>
+                            <section class="tab-hero tab-hero--rating">
+                                <article class="tab-hero__card">
+                                    <span class="tab-hero__icon" aria-hidden="true">🏆</span>
+                                    <p>Выполняй задания,<br>получай молнии<br>и занимай высокие места</p>
+                                </article>
+                                <img class="tab-hero__mascot" src="./mascot/SVG/удивление.svg" alt="" aria-hidden="true">
+                            </section>
+                            <div class="leaderboard-podium" id="leaderboardPodium"></div>
+                            <div class="leaderboard-list" id="leaderboardList"></div>
+                            <section class="rating-note">
+                                <img src="./mascot/SVG/базовый прямой.svg" alt="" aria-hidden="true">
+                                <p>До топ-5 осталось всего <strong>670</strong> молний! Продолжай в том же духе.</p>
+                            </section>
+                        </section>
+
+                        <section class="tab-panel profile-tab is-hidden" id="profilePanel" data-panel="profile">
+                            <header class="tab-header">
+                                <h1>Профиль</h1>
+                                <div class="tab-balance"><img src="./assets_home/молния.svg" alt=""><span data-balance>60</span></div>
+                            </header>
+                            <section class="profile-hero">
+                                <div class="profile-avatar">
+                                    <img src="./assets_home/профиль без фото.jpg" alt="">
+                                    <button type="button" aria-label="Редактировать профиль">✎</button>
+                                </div>
+                                <img class="profile-mascot" src="./mascot/SVG/базовый прямой.svg" alt="" aria-hidden="true">
+                                <h2>Александр</h2>
+                                <p>@alexandr</p>
+                            </section>
+                            <section class="profile-stats">
+                                <article><span>🔥</span><p>Уровень серии</p><strong id="profileLevel">12</strong></article>
+                                <article><span>⚡</span><p>Всего молний</p><strong>12 560</strong></article>
+                                <article><span>🏆</span><p>Место в рейтинге</p><strong>6</strong></article>
+                                <article><span>🗓</span><p>Серия дней</p><strong>18</strong></article>
+                            </section>
+                            <section class="achievements-card">
+                                <div class="profile-section-head">
+                                    <h2>Достижения</h2>
+                                    <button type="button">Все достижения ›</button>
+                                </div>
+                                <div class="achievements-list" id="achievementsList"></div>
+                            </section>
+                            <section class="profile-menu">
+                                <button type="button">Личные данные <span>›</span></button>
+                                <button type="button">Уведомления <span>›</span></button>
+                                <button type="button">Безопасность <span>›</span></button>
+                                <button type="button">Помощь и поддержка <span>›</span></button>
+                                <button type="button">Выйти из аккаунта <span>›</span></button>
+                            </section>
+                        </section>
                     </div>
-
-                    <button class="play-button play-button--home" type="button" id="playButton" aria-expanded="false" aria-controls="gamesSheet">
-                        <span class="play-button__icon" aria-hidden="true">
-                            <img src="./assets_home/иконка плей.webp" alt="">
-                        </span>
-                        <span>Играть</span>
-                    </button>
-
-                    <button class="play-button play-button--home play-button--share is-hidden" type="button" id="shareButton">
-                        <span class="play-button__icon" aria-hidden="true">
-                            <img src="./assets_home/иконка поделиться.webp" alt="">
-                        </span>
-                        <span>Поделиться</span>
-                    </button>
-
-                    <section class="info-card games-card games-sheet is-collapsed" id="gamesSheet">
-                        <div class="section-heading">
-                            <h2>Игры</h2>
-                            <span class="section-caption">Выберите игру</span>
-                        </div>
-
-                        <div class="games-grid" aria-label="Список мини-игр">
-                            <button class="game-option is-selected" type="button" data-game="doodlejump">
-                                <span class="game-option__icon game-option__icon--image" aria-hidden="true">
-                                    <img src="./assets_home/миниигры иконки/джампер.webp" alt="">
-                                </span>
-                                <span class="game-option__body">
-                                    <span class="game-option__title">Doodle Jump</span>
-                                </span>
-                                <span class="game-option__arrow" aria-hidden="true">›</span>
-                            </button>
-
-                            <button class="game-option" type="button" data-game="trexrunner">
-                                <span class="game-option__icon game-option__icon--image" aria-hidden="true">
-                                    <img src="./assets_home/миниигры иконки/дино.webp" alt="">
-                                </span>
-                                <span class="game-option__body">
-                                    <span class="game-option__title">T-rex Run</span>
-                                </span>
-                                <span class="game-option__arrow" aria-hidden="true">›</span>
-                            </button>
-
-                            <button class="game-option" type="button" data-game="flappybird">
-                                <span class="game-option__icon game-option__icon--image" aria-hidden="true">
-                                    <img src="./assets_home/миниигры иконки/флэппи.webp" alt="">
-                                </span>
-                                <span class="game-option__body">
-                                    <span class="game-option__title">Flappy Bird</span>
-                                </span>
-                                <span class="game-option__arrow" aria-hidden="true">›</span>
-                            </button>
-
-                            <button class="game-option" type="button" data-game="2048">
-                                <span class="game-option__icon game-option__icon--image" aria-hidden="true">
-                                    <img src="./assets_home/миниигры иконки/2048.webp" alt="">
-                                </span>
-                                <span class="game-option__body">
-                                    <span class="game-option__title">2048</span>
-                                </span>
-                                <span class="game-option__arrow" aria-hidden="true">›</span>
-                            </button>
-                        </div>
-                    </section>
 
                     <nav class="bottom-nav" aria-label="Нижняя навигация">
                         <button class="bottom-nav__item is-active" type="button" data-nav="home">
@@ -202,87 +307,6 @@
                             <span>Профиль</span>
                         </button>
                     </nav>
-                </section>
-
-                <section class="rewards-screen is-hidden" id="rewardsScreen" aria-labelledby="rewardsTitle">
-                    <div class="rewards-screen__surface">
-                        <header class="rewards-screen__header">
-                            <button class="rewards-screen__back" type="button" id="rewardsCloseButton">Назад</button>
-                            <h1 id="rewardsTitle">Подарки</h1>
-                            <div class="rewards-balance" aria-label="Доступно молний">
-                                <img src="./assets_home/молния.svg" alt="">
-                                <span id="rewardsBalance">60</span>
-                            </div>
-                        </header>
-
-                        <section class="rewards-hero">
-                            <div class="rewards-hero__copy">
-                                <span class="rewards-hero__badge" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" role="presentation">
-                                        <path d="M20 7h-2.2a3 3 0 0 0 .5-1.6c0-1.7-1.4-3-3-3-1.3 0-2.3.7-3.3 2.2-1-1.5-2-2.2-3.3-2.2-1.6 0-3 1.3-3 3 0 .6.2 1.1.5 1.6H4a1 1 0 0 0-1 1v3c0 .6.4 1 1 1h1v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7h1a1 1 0 0 0 1-1V8c0-.6-.4-1-1-1Zm-5-2.6c.7 0 1.2.5 1.2 1.2 0 .8-.9 1.4-2.5 1.4h-.5c.6-1.8 1.2-2.6 1.8-2.6Zm-6 0c.6 0 1.2.8 1.8 2.6h-.5c-1.6 0-2.5-.6-2.5-1.4 0-.7.5-1.2 1.2-1.2ZM5 9h6v2H5V9Zm2 4h4v6H7v-6Zm6 6v-6h4v6h-4Zm6-8h-6V9h6v2Z"/>
-                                    </svg>
-                                </span>
-                                <p>Обменивай<br>молнии на бонусы<br>и приятные призы <img src="./assets_home/молния.svg" alt=""></p>
-                            </div>
-                            <div class="rewards-hero__mascot" aria-hidden="true">
-                                <img src="./mascot/SVG/базовый прямой.svg" alt="">
-                            </div>
-                        </section>
-
-                        <section class="rewards-section">
-                            <div class="rewards-section__header">
-                                <h2>Доступно для тебя</h2>
-                                <span class="rewards-section__hint">Можно обменять сейчас</span>
-                            </div>
-                            <div class="rewards-grid" id="availableRewards"></div>
-                        </section>
-
-                        <section class="rewards-section">
-                            <div class="rewards-section__header">
-                                <h2>Скоро станут доступны</h2>
-                                <span class="rewards-section__hint">Открой больше уровней</span>
-                            </div>
-                            <div class="rewards-grid rewards-grid--locked" id="lockedRewards"></div>
-                        </section>
-
-                        <section class="rewards-note">
-                            <span class="rewards-note__lock" aria-hidden="true">🔒</span>
-                            <p>Выполняй задания и повышай уровень, чтобы открывать больше подарков!</p>
-                        </section>
-
-                        <nav class="bottom-nav rewards-bottom-nav" aria-label="Нижняя навигация">
-                            <button class="bottom-nav__item" type="button" data-nav="home">
-                                <span class="bottom-nav__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" role="presentation"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1v-9.5Z"/></svg>
-                                </span>
-                                <span>Главная</span>
-                            </button>
-                            <button class="bottom-nav__item" type="button" data-nav="tasks">
-                                <span class="bottom-nav__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" role="presentation"><path d="M5 6.5h14M5 12h14M5 17.5h9"/><path d="m16 17.5 1.8 1.8L22 15"/></svg>
-                                </span>
-                                <span>Задания</span>
-                            </button>
-                            <button class="bottom-nav__item is-active" type="button" data-nav="rewards">
-                                <span class="bottom-nav__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" role="presentation"><path d="M4 9h16v11H4V9Z"/><path d="M3 5.5h18V9H3V5.5ZM12 5.5V20M8 5.5c-1.7 0-3-1-3-2.2C5 2.6 5.6 2 6.5 2 8.2 2 10 5.5 10 5.5M16 5.5c1.7 0 3-1 3-2.2 0-.7-.6-1.3-1.5-1.3C15.8 2 14 5.5 14 5.5"/></svg>
-                                </span>
-                                <span>Подарки</span>
-                            </button>
-                            <button class="bottom-nav__item" type="button" data-nav="rating">
-                                <span class="bottom-nav__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" role="presentation"><path d="M12 3.5 14.6 9l5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2L9.4 9 12 3.5Z"/></svg>
-                                </span>
-                                <span>Рейтинг</span>
-                            </button>
-                            <button class="bottom-nav__item" type="button" data-nav="profile">
-                                <span class="bottom-nav__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" role="presentation"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
-                                </span>
-                                <span>Профиль</span>
-                            </button>
-                        </nav>
-                    </div>
                 </section>
             </section>
 

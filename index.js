@@ -17,15 +17,59 @@ const games = {
     }
 };
 
-const rewardsCatalog = [
-    { title: "Кэшбэк 5%", subtitle: "на покупки", cost: 20, minLevel: 1, tone: "blue", icon: "bag" },
-    { title: "Кофе в подарок", subtitle: "от партнёров", cost: 15, minLevel: 1, tone: "green", icon: "cup" },
-    { title: "Месяц связи", subtitle: "бесплатно", cost: 25, minLevel: 1, tone: "violet", icon: "phone" },
-    { title: "Сюрприз", subtitle: "рандомный приз", cost: 30, minLevel: 1, tone: "gold", icon: "gift" },
-    { title: "Скидка 15%", subtitle: "на электронику", minLevel: 10, tone: "soft-blue", icon: "headphones" },
-    { title: "Билет в кино", subtitle: "от партнёров", minLevel: 12, tone: "soft-peach", icon: "ticket" },
-    { title: "Кэшбэк 10%", subtitle: "на путешествия", minLevel: 15, tone: "soft-aqua", icon: "suitcase" },
-    { title: "Бонусы", subtitle: "в игры и сервисы", minLevel: 18, tone: "soft-pink", icon: "gamepad" }
+const battlePassRewards = [
+    { level: 5, emoji: "🌱", title: "Новичок", reward: "Промокод Cofix: Американо за 1 BYN" },
+    { level: 10, emoji: "🌿", title: "Любитель", reward: "Комбо KFC: Чизбургер + Картошка фри + Напиток" },
+    { level: 15, emoji: "🍀", title: "Знаток", reward: "Скидка 15% на Яндекс Маркет" },
+    { level: 20, emoji: "⭐", title: "Профи", reward: "Промокод Золотое Яблоко: -15%" },
+    { level: 25, emoji: "💫", title: "Ветеран", reward: "Мерч: Стикерпак + Носки с Мобиком" },
+    { level: 30, emoji: "✨", title: "Элита", reward: "Промокод Wildberries: -15%" },
+    { level: 35, emoji: "🔥", title: "Мастер", reward: "Яндекс Go: 3 бесплатные поездки" },
+    { level: 40, emoji: "💎", title: "Гуру", reward: "Мерч: Футболка с Мобиком" },
+    { level: 45, emoji: "👑", title: "Император", reward: "Подписка Яндекс Плюс (1 месяц)" },
+    { level: 50, emoji: "🏆", title: "Легенда", reward: "Именная карта + кешбэк 7%" },
+    { level: 55, emoji: "🌙", title: "Мастер стихий", reward: "Купон Cofix 30 BYN" },
+    { level: 60, emoji: "⚡", title: "Титан", reward: "Скидка 40 BYN в Золотом Яблоке" },
+    { level: 65, emoji: "❄️", title: "Хранитель", reward: "Кешбэк 90% на Яндекс Go" },
+    { level: 70, emoji: "🧙", title: "Властелин", reward: "Мерч: Худи с Мобиком" },
+    { level: 75, emoji: "☀️", title: "Повелитель", reward: "Wildberries 60 BYN" },
+    { level: 80, emoji: "🎮", title: "Бог Мобиков", reward: "Яндекс Плюс (3 месяца)" },
+    { level: 85, emoji: "🐉", title: "Дракон", reward: "Сертификат KFC 60 BYN" },
+    { level: 90, emoji: "🌌", title: "Создатель", reward: "Скидка 80 BYN" },
+    { level: 95, emoji: "🧪", title: "Абсолют", reward: "Кешбэк 10% на 14 дней" },
+    { level: 99, emoji: "👾", title: "МАКСИМУМ", reward: "🎁 Гранд-приз: мерч-бокс + карта + KFC 100 BYN" }
+];
+
+const tasksCatalog = [
+    { icon: "👥", title: "Пригласи друга в приложение", reward: 50, progress: "0 / 1" },
+    { icon: "Pay", title: "Привяжи карту к Apple Pay или Google Pay", reward: 20 },
+    { icon: "💳", title: "Оформи карту Шоппер, Халва или Кактус", reward: 30 },
+    { icon: "⭐", title: "Оформи подписку", note: "например, Семейная в Халве", reward: 30 },
+    { icon: "🧊", title: "Подключи пакет услуг", note: "Минимум, Оптимум, Максимум, Медиум", reward: 20 },
+    { icon: "🛍", title: "Соверши покупки по картам МТБанка", reward: 15, progress: "0 / 5 покупок" },
+    { icon: "💙", title: "Сделай пожертвование", note: "благотворительность", reward: 25 },
+    { icon: "🔔", title: "Включи push-уведомления и акционные рассылки", reward: 10 },
+    { icon: "💵", title: "Пополни карту от 10 BYN", reward: 15 },
+    { icon: "↔", title: "Переведи по номеру телефона от 5 BYN", reward: 15 }
+];
+
+const leaderboard = [
+    { place: 1, name: "Александр", score: 12560, avatar: "./assets_home/профиль без фото.jpg" },
+    { place: 2, name: "Мария", score: 9870, avatar: "./assets_home/профиль без фото.jpg" },
+    { place: 3, name: "Дмитрий", score: 8420, avatar: "./assets_home/профиль без фото.jpg" },
+    { place: 4, name: "Виктория", score: 7210, avatar: "./assets_home/профиль без фото.jpg" },
+    { place: 5, name: "Иван", score: 6540, avatar: "./assets_home/профиль без фото.jpg" },
+    { place: 6, name: "Ты", score: 5870, avatar: "./mascot/SVG/базовый прямой.svg", current: true },
+    { place: 7, name: "Екатерина", score: 4230, avatar: "./assets_home/профиль без фото.jpg" },
+    { place: 8, name: "Никита", score: 3560, avatar: "./assets_home/профиль без фото.jpg" }
+];
+
+const achievements = [
+    { icon: "🔥", title: "Неделя огня", text: "7 дней подряд" },
+    { icon: "🎯", title: "Задания мастер", text: "Выполнил 50 заданий" },
+    { icon: "⚡", title: "Молниеносный", text: "Собрал 1000 молний" },
+    { icon: "👥", title: "Друг на связи", text: "Пригласил 5 друзей" },
+    { icon: "🎁", title: "Охотник за подарками", text: "Открыл 20 подарков" }
 ];
 
 window.addEventListener("load", () => {
@@ -43,8 +87,13 @@ window.addEventListener("load", () => {
     const rewardsScreen = document.getElementById("rewardsScreen");
     const rewardsCloseButton = document.getElementById("rewardsCloseButton");
     const rewardsBalance = document.getElementById("rewardsBalance");
-    const availableRewards = document.getElementById("availableRewards");
-    const lockedRewards = document.getElementById("lockedRewards");
+    const battlePassTrack = document.getElementById("battlePassTrack");
+    const battleNextPrize = document.getElementById("battleNextPrize");
+    const tasksList = document.getElementById("tasksList");
+    const leaderboardPodium = document.getElementById("leaderboardPodium");
+    const leaderboardList = document.getElementById("leaderboardList");
+    const achievementsList = document.getElementById("achievementsList");
+    const profileLevel = document.getElementById("profileLevel");
     const activityValue = document.getElementById("activityValue");
     const activityFill = document.getElementById("activityFill");
     const activityCard = document.querySelector(".activity-card");
@@ -64,82 +113,118 @@ window.addEventListener("load", () => {
     const backButton = document.getElementById("backButton");
     const gameButtons = [...document.querySelectorAll(".game-option")];
     const navButtons = [...document.querySelectorAll(".bottom-nav__item")];
+    const tabPanels = [...document.querySelectorAll(".tab-panel")];
+    const balanceValues = [...document.querySelectorAll("[data-balance]")];
 
     let selectedGameId = "doodlejump";
     let homeStats = null;
 
-    function getRewardIcon(iconName) {
-        const icons = {
-            bag: '<svg viewBox="0 0 64 64" role="presentation"><defs><linearGradient id="bagGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3190ff"/><stop offset="100%" stop-color="#1b5fe6"/></linearGradient></defs><path fill="url(#bagGrad)" d="M18 22h28a6 6 0 0 1 6 6v22a8 8 0 0 1-8 8H20a8 8 0 0 1-8-8V28a6 6 0 0 1 6-6Z"/><path fill="#7fb7ff" d="M23 24v-4a9 9 0 0 1 18 0v4h-4v-3a5 5 0 0 0-10 0v3Z"/></svg>',
-            cup: '<svg viewBox="0 0 64 64" role="presentation"><defs><linearGradient id="cupGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#68c33d"/><stop offset="100%" stop-color="#2f8f16"/></linearGradient></defs><path fill="url(#cupGrad)" d="M14 22h34v7a17 17 0 0 1-17 17h0A17 17 0 0 1 14 29v-7Z"/><path fill="#84da63" d="M11 20a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v2H11v-2Z"/><path fill="#d4f0c8" d="M20 50h22v4H20z"/></svg>',
-            phone: '<svg viewBox="0 0 64 64" role="presentation"><defs><linearGradient id="phoneGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c6a3ff"/><stop offset="100%" stop-color="#9b71f1"/></linearGradient></defs><rect x="18" y="8" width="28" height="48" rx="8" fill="url(#phoneGrad)"/><circle cx="32" cy="16" r="2.4" fill="#9d7df3"/><circle cx="32" cy="46" r="4" fill="#f8f1ff"/></svg>',
-            gift: '<svg viewBox="0 0 64 64" role="presentation"><defs><linearGradient id="giftGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffd24f"/><stop offset="100%" stop-color="#f6ae00"/></linearGradient></defs><path fill="url(#giftGrad)" d="M12 28h40v24a8 8 0 0 1-8 8H20a8 8 0 0 1-8-8V28Z"/><path fill="#ffeb9d" d="M10 20a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v8H10v-8Z"/><path fill="#f7b300" d="M29 14h6v46h-6z"/><path fill="#f7b300" d="M10 29h44v6H10z"/></svg>',
-            headphones: '<svg viewBox="0 0 64 64" role="presentation"><defs><linearGradient id="headGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#99c1ff"/><stop offset="100%" stop-color="#6a9df8"/></linearGradient></defs><path fill="url(#headGrad)" d="M32 14a18 18 0 0 0-18 18v15h7V32a11 11 0 1 1 22 0v15h7V32a18 18 0 0 0-18-18Z"/><rect x="12" y="36" width="10" height="16" rx="5" fill="#7faeff"/><rect x="42" y="36" width="10" height="16" rx="5" fill="#7faeff"/></svg>',
-            ticket: '<svg viewBox="0 0 64 64" role="presentation"><defs><linearGradient id="ticketGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffa373"/><stop offset="100%" stop-color="#ff7547"/></linearGradient></defs><path fill="url(#ticketGrad)" d="M14 20a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4c0 3.3 2.7 6 6 6v12c-3.3 0-6 2.7-6 6a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4c0-3.3-2.7-6-6-6V26c3.3 0 6-2.7 6-6Z"/><circle cx="26" cy="32" r="5" fill="#ffd7c8"/><path fill="#ffd7c8" d="M36 25h8v3h-8zm0 6h8v3h-8zm0 6h8v3h-8z"/></svg>',
-            suitcase: '<svg viewBox="0 0 64 64" role="presentation"><defs><linearGradient id="suitGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#73d8da"/><stop offset="100%" stop-color="#42b8c7"/></linearGradient></defs><rect x="12" y="20" width="40" height="32" rx="8" fill="url(#suitGrad)"/><path fill="#86e7e9" d="M24 16a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v4h-4v-3h-8v3h-4z"/><path fill="#49bfca" d="M30 20h4v32h-4z"/></svg>',
-            gamepad: '<svg viewBox="0 0 64 64" role="presentation"><defs><linearGradient id="padGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffa4d6"/><stop offset="100%" stop-color="#ff75bc"/></linearGradient></defs><path fill="url(#padGrad)" d="M20 22h24a12 12 0 0 1 11.6 15l-3 11.2a7 7 0 0 1-11.4 3.3l-5.4-4.6h-7.6l-5.4 4.6a7 7 0 0 1-11.4-3.3l-3-11.2A12 12 0 0 1 20 22Z"/><path fill="#fff1f8" d="M22 32h4v-4h4v4h4v4h-4v4h-4v-4h-4zm18-1a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm8-4a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"/></svg>'
-        };
-
-        return icons[iconName] || icons.gift;
-    }
-
-    function createRewardCard(reward, isLocked = false) {
-        const article = document.createElement("article");
-        article.className = `reward-card reward-card--${reward.tone}${isLocked ? " is-locked" : ""}`;
-        article.innerHTML = `
-            <div class="reward-card__top">
-                <span class="reward-card__sparkle" aria-hidden="true">✦</span>
-                ${isLocked ? '<span class="reward-card__lock" aria-hidden="true">🔒</span>' : '<span></span>'}
-            </div>
-            <div class="reward-card__icon" aria-hidden="true">${getRewardIcon(reward.icon)}</div>
-            <div class="reward-card__copy">
-                <h3 class="reward-card__title">${reward.title}</h3>
-                <p class="reward-card__subtitle">${reward.subtitle}</p>
-            </div>
-            <div class="reward-card__meta">
-                ${isLocked
-                    ? `Нужен <strong>${reward.minLevel}</strong> уровень`
-                    : `<img src="./assets_home/молния.svg" alt=""><span>${reward.cost}</span>`}
-            </div>
-        `;
-        return article;
-    }
-
     function renderRewards(level, activity) {
-        if (!availableRewards || !lockedRewards) {
+        if (!battlePassTrack) {
             return;
         }
 
-        availableRewards.innerHTML = "";
-        lockedRewards.innerHTML = "";
+        const currentLevel = Math.max(0, level);
+        const nextReward = battlePassRewards.find((reward) => reward.level > currentLevel);
 
-        for (const reward of rewardsCatalog) {
-            const isLocked = reward.minLevel > Math.max(level, 1);
-            const shouldBeLockedSection = reward.minLevel > 1;
-            const target = shouldBeLockedSection ? lockedRewards : availableRewards;
-            target.append(createRewardCard(reward, shouldBeLockedSection));
+        battlePassTrack.innerHTML = "";
+
+        for (const reward of battlePassRewards) {
+            const isReceived = currentLevel >= reward.level;
+            const isCurrent = !isReceived && reward === nextReward;
+            const article = document.createElement("article");
+            article.className = `battle-step${isReceived ? " is-received" : ""}${isCurrent ? " is-current" : ""}`;
+            article.innerHTML = `
+                <div class="battle-marker">
+                    <span class="battle-marker__level">${reward.level}</span>
+                    <span class="battle-marker__state" aria-hidden="true">${isReceived ? "✓" : isCurrent ? "●" : "🔒"}</span>
+                </div>
+                <div class="battle-reward-card">
+                    <span class="battle-reward-card__icon" aria-hidden="true">${reward.emoji}</span>
+                    <div class="battle-reward-card__copy">
+                        <h3>${reward.title}</h3>
+                        <p>${reward.reward}</p>
+                    </div>
+                    <span class="battle-reward-card__badge">${isReceived ? "Получено" : isCurrent ? "Текущий" : "Закрыто"}</span>
+                </div>
+            `;
+            battlePassTrack.append(article);
         }
 
         if (rewardsBalance) {
-            rewardsBalance.textContent = String(activity);
+            rewardsBalance.textContent = String(currentLevel);
+        }
+
+        if (battleNextPrize) {
+            battleNextPrize.textContent = nextReward
+                ? `${nextReward.level - currentLevel} ${getRussianLevelWord(nextReward.level - currentLevel)}`
+                : "все открыты";
+        }
+
+        for (const value of balanceValues) {
+            value.textContent = String(activity);
+        }
+
+        if (profileLevel) {
+            profileLevel.textContent = String(currentLevel);
+        }
+    }
+
+    function renderStaticTabs() {
+        if (tasksList) {
+            tasksList.innerHTML = tasksCatalog.map((task) => `
+                <article class="task-card">
+                    <span class="task-card__icon" aria-hidden="true">${task.icon}</span>
+                    <div class="task-card__copy">
+                        <h3>${task.title}</h3>
+                        ${task.note ? `<p>${task.note}</p>` : ""}
+                        ${task.progress ? `<span>${task.progress}</span>` : ""}
+                    </div>
+                    <strong class="task-card__reward">+⚡ ${task.reward}</strong>
+                    <span class="task-card__arrow" aria-hidden="true">›</span>
+                </article>
+            `).join("");
+        }
+
+        if (leaderboardPodium) {
+            leaderboardPodium.innerHTML = leaderboard.slice(0, 3).map((user) => `
+                <article class="podium-card podium-card--${user.place}">
+                    <span class="podium-card__place">${user.place}</span>
+                    <img src="${user.avatar}" alt="">
+                    <h3>${user.name}</h3>
+                    <strong>${user.score.toLocaleString("ru-RU")} ⚡</strong>
+                </article>
+            `).join("");
+        }
+
+        if (leaderboardList) {
+            leaderboardList.innerHTML = leaderboard.slice(3).map((user) => `
+                <article class="leaderboard-row${user.current ? " is-current" : ""}">
+                    <span>${user.place}</span>
+                    <img src="${user.avatar}" alt="">
+                    <strong>${user.name}</strong>
+                    <em>${user.score.toLocaleString("ru-RU")} ⚡</em>
+                </article>
+            `).join("");
+        }
+
+        if (achievementsList) {
+            achievementsList.innerHTML = achievements.map((item) => `
+                <article class="achievement-item">
+                    <span aria-hidden="true">${item.icon}</span>
+                    <h3>${item.title}</h3>
+                    <p>${item.text}</p>
+                </article>
+            `).join("");
         }
     }
 
     function toggleRewardsScreen(forceOpen) {
-        if (!rewardsScreen) {
-            return;
-        }
-
         const shouldOpen = typeof forceOpen === "boolean"
             ? forceOpen
-            : rewardsScreen.classList.contains("is-hidden");
+            : !rewardsScreen || rewardsScreen.classList.contains("is-hidden");
 
-        rewardsScreen.classList.toggle("is-hidden", !shouldOpen);
-        setActiveNav(shouldOpen ? "rewards" : "home");
-        if (shouldOpen) {
-            toggleGamesSheet(false);
-            toggleActivityPopover(false);
-        }
+        showTab(shouldOpen ? "rewards" : "home");
     }
 
     function setActiveNav(navId) {
@@ -150,22 +235,23 @@ window.addEventListener("load", () => {
         }
     }
 
-    function handleNavClick(navId) {
-        if (navId === "rewards") {
-            toggleRewardsScreen(true);
-            return;
-        }
-
-        if (navId === "home") {
-            toggleRewardsScreen(false);
-            return;
-        }
-
-        if (rewardsScreen) {
-            rewardsScreen.classList.add("is-hidden");
+    function showTab(navId) {
+        for (const panel of tabPanels) {
+            const isActive = panel.dataset.panel === navId;
+            panel.classList.toggle("is-active", isActive);
+            panel.classList.toggle("is-hidden", !isActive);
+            if (isActive) {
+                panel.scrollTop = 0;
+            }
         }
 
         setActiveNav(navId);
+        toggleGamesSheet(false);
+        toggleActivityPopover(false);
+    }
+
+    function handleNavClick(navId) {
+        showTab(navId);
     }
 
     function selectGame(gameId) {
@@ -518,7 +604,7 @@ window.addEventListener("load", () => {
 
     if (rewardsCloseButton) {
         rewardsCloseButton.addEventListener("click", () => {
-            toggleRewardsScreen(false);
+            showTab("home");
         });
     }
 
@@ -558,8 +644,9 @@ window.addEventListener("load", () => {
     });
 
     selectGame(selectedGameId);
+    renderStaticTabs();
     toggleGamesSheet(false);
     toggleActivityPopover(false);
-    toggleRewardsScreen(false);
+    showTab("home");
     updateHomeStats();
 });

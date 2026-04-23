@@ -157,7 +157,7 @@ const tasksSections = [
 ];
 
 const leaderboard = [
-    { place: 1, name: "Александр", score: 12560, avatar: "./assets_home/профиль без фото.jpg" },
+    { place: 1, name: "Максим", score: 12560, avatar: "./assets_home/профиль без фото.jpg" },
     { place: 2, name: "Мария", score: 9870, avatar: "./assets_home/профиль без фото.jpg" },
     { place: 3, name: "Дмитрий", score: 8420, avatar: "./assets_home/профиль без фото.jpg" },
     { place: 4, name: "Виктория", score: 7210, avatar: "./assets_home/профиль без фото.jpg" },
@@ -174,6 +174,11 @@ const achievements = [
     { icon: "users", title: "Друг на связи", text: "Пригласил 5 друзей" },
     { icon: "gift", title: "Охотник за подарками", text: "Открыл 20 подарков" }
 ];
+
+const profileUser = {
+    name: "Никита",
+    username: "@weblov3"
+};
 
 window.addEventListener("load", () => {
     const DEMO_SLEEP_START = true;
@@ -196,6 +201,8 @@ window.addEventListener("load", () => {
     const leaderboardPodium = document.getElementById("leaderboardPodium");
     const leaderboardList = document.getElementById("leaderboardList");
     const achievementsList = document.getElementById("achievementsList");
+    const profileName = document.getElementById("profileName");
+    const profileUsername = document.getElementById("profileUsername");
     const profileLevel = document.getElementById("profileLevel");
     const activityValue = document.getElementById("activityValue");
     const activityFill = document.getElementById("activityFill");
@@ -283,6 +290,16 @@ window.addEventListener("load", () => {
     function hydrateStaticIcons() {
         for (const iconNode of document.querySelectorAll("[data-icon]")) {
             iconNode.innerHTML = `<svg viewBox="0 0 24 24" role="presentation">${getIconSvg(iconNode.dataset.icon)}</svg>`;
+        }
+    }
+
+    function syncProfileIdentity() {
+        if (profileName) {
+            profileName.textContent = profileUser.name;
+        }
+
+        if (profileUsername) {
+            profileUsername.textContent = profileUser.username;
         }
     }
 
@@ -882,6 +899,7 @@ window.addEventListener("load", () => {
     syncViewportMetrics();
     preventGestureZoom();
     requestPortraitLock();
+    syncProfileIdentity();
     selectGame(selectedGameId);
     hydrateStaticIcons();
     renderStaticTabs();

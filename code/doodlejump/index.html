@@ -10,38 +10,73 @@
     <body>
         <main class="app-shell">
             <section class="game-screen">
-                <header class="top-stats">
-                    <article class="stat-card">
-                        <div class="stat-pill">
-                            <span class="stat-icon" aria-hidden="true">
-                                <img src="../../assets_home/огонек.svg" alt="">
-                            </span>
-                            <strong id="streakValue">12</strong>
-                        </div>
-                        <p>Уровень серии</p>
-                    </article>
-
-                    <article class="score-card">
-                        <strong id="scoreValue">0</strong>
-                        <p>Очки</p>
-                    </article>
-
-                    <article class="stat-card">
-                        <div class="stat-pill stat-pill--lightning">
-                            <span class="stat-icon" aria-hidden="true">
-                                <img src="../../assets_home/молния.svg" alt="">
-                            </span>
-                            <strong id="lightningValue">+0</strong>
-                        </div>
-                        <p>Молнии</p>
-                    </article>
-                </header>
-
                 <section class="board-stage">
                     <div class="board-frame">
                         <div class="board-decor board-decor--left" aria-hidden="true"></div>
                         <div class="board-decor board-decor--right" aria-hidden="true"></div>
                         <canvas id="board" aria-label="Doodle Jump game board"></canvas>
+
+                        <header class="top-stats">
+                            <article class="stat-card">
+                                <div class="stat-pill">
+                                    <span class="stat-icon" aria-hidden="true">
+                                        <img src="../../assets_home/огонек.svg" alt="">
+                                    </span>
+                                    <strong id="streakValue">12</strong>
+                                </div>
+                                <p>Серия</p>
+                            </article>
+
+                            <article class="score-card">
+                                <strong id="scoreValue">0</strong>
+                                <p>Очки</p>
+                            </article>
+
+                            <article class="stat-card">
+                                <div class="stat-pill stat-pill--lightning">
+                                    <span class="stat-icon" aria-hidden="true">
+                                        <img src="../../assets_home/молния.svg" alt="">
+                                    </span>
+                                    <strong id="lightningValue">+0</strong>
+                                </div>
+                                <p>Молнии</p>
+                            </article>
+                        </header>
+
+                        <footer class="bottom-bar">
+                            <button class="circle-button" type="button" id="backButton" aria-label="Назад">
+                                <span class="circle-button__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" role="presentation">
+                                        <path d="M14.7 5.3a1 1 0 0 1 0 1.4L10.41 11H20a1 1 0 1 1 0 2h-9.59l4.29 4.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0Z"/>
+                                    </svg>
+                                </span>
+                            </button>
+
+                            <section class="mission-card" aria-label="Прогресс задания">
+                                <div class="mission-copy">
+                                    <span class="mission-icon" aria-hidden="true">
+                                        <img src="../../assets_home/молния.svg" alt="">
+                                    </span>
+                                    <p id="missionLabel">1000 очков</p>
+                                </div>
+                                <div class="progress-row">
+                                    <div class="progress-track" aria-hidden="true">
+                                        <span class="progress-fill" id="progressFill"></span>
+                                    </div>
+                                    <strong class="progress-value" id="progressValue">0 / 1000</strong>
+                                </div>
+                            </section>
+
+                            <button class="circle-button" type="button" id="pauseButton" aria-label="Пауза">
+                                <span class="circle-button__icon" id="pauseIcon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" role="presentation">
+                                        <rect x="6" y="4.5" width="4" height="15" rx="1.8"></rect>
+                                        <rect x="14" y="4.5" width="4" height="15" rx="1.8"></rect>
+                                    </svg>
+                                </span>
+                            </button>
+                        </footer>
+
                         <div class="board-overlay" id="gameOverlay">
                             <div class="overlay-content">
                                 <p class="overlay-kicker" id="overlayKicker">Мини-игра</p>
@@ -52,31 +87,6 @@
                         </div>
                     </div>
                 </section>
-
-                <footer class="bottom-bar">
-                    <button class="circle-button" type="button" id="backButton" aria-label="Назад">
-                        <span class="circle-button__icon circle-button__icon--back" aria-hidden="true"></span>
-                    </button>
-
-                    <section class="mission-card" aria-label="Прогресс задания">
-                        <div class="mission-copy">
-                            <span class="mission-icon" aria-hidden="true">
-                                <img src="../../assets_home/молния.svg" alt="">
-                            </span>
-                            <p id="missionLabel">Получите 1000 очков</p>
-                        </div>
-                        <div class="progress-row">
-                            <div class="progress-track" aria-hidden="true">
-                                <span class="progress-fill" id="progressFill"></span>
-                            </div>
-                            <strong class="progress-value" id="progressValue">0 / 1000</strong>
-                        </div>
-                    </section>
-
-                    <button class="circle-button" type="button" id="pauseButton" aria-label="Пауза">
-                        <span class="circle-button__icon circle-button__icon--pause" id="pauseIcon" aria-hidden="true"></span>
-                    </button>
-                </footer>
             </section>
         </main>
     </body>

@@ -1,9 +1,9 @@
 const BOARD_WIDTH = 360;
 const BOARD_HEIGHT = 576;
-const DOODLER_WIDTH = 88;
-const DOODLER_HEIGHT = 90;
-const PLATFORM_WIDTH = 94;
-const PLATFORM_HEIGHT = 38;
+const DOODLER_WIDTH = 80;
+const DOODLER_HEIGHT = 82;
+const PLATFORM_WIDTH = 86;
+const PLATFORM_HEIGHT = 34;
 const MOVE_SPEED = 4.8;
 const INITIAL_VELOCITY_Y = -10.5;
 const GRAVITY = 0.35;
@@ -54,6 +54,23 @@ class DoodleJumpGame {
         this.reset();
         this.render();
         this.showOverlay();
+    }
+
+    getPauseIconMarkup(isPlay = false) {
+        if (isPlay) {
+            return `
+                <svg viewBox="0 0 24 24" role="presentation">
+                    <path d="M8 5.4c0-.8.9-1.28 1.58-.82l8.24 5.6c.6.4.6 1.28 0 1.68l-8.24 5.6A1 1 0 0 1 8 16.6V5.4Z"></path>
+                </svg>
+            `;
+        }
+
+        return `
+            <svg viewBox="0 0 24 24" role="presentation">
+                <rect x="6" y="4.5" width="4" height="15" rx="1.8"></rect>
+                <rect x="14" y="4.5" width="4" height="15" rx="1.8"></rect>
+            </svg>
+        `;
     }
 
     loadImages() {
@@ -387,7 +404,7 @@ class DoodleJumpGame {
         this.progressValue.textContent = `${Math.min(this.score, MISSION_TARGET)} / ${MISSION_TARGET}`;
         this.progressFill.style.width = `${Math.min(this.score / MISSION_TARGET, 1) * 100}%`;
         this.pauseButton.setAttribute("aria-label", this.paused ? "Продолжить" : "Пауза");
-        this.pauseIcon.className = `circle-button__icon ${this.paused ? "circle-button__icon--play" : "circle-button__icon--pause"}`;
+        this.pauseIcon.innerHTML = this.getPauseIconMarkup(this.paused);
     }
 
     detectCollision(a, b) {
@@ -421,7 +438,7 @@ class DoodleJumpGame {
     hideOverlay(isActiveGame = false) {
         this.overlay.classList.add("is-hidden");
         if (isActiveGame) {
-            this.pauseIcon.className = "circle-button__icon circle-button__icon--pause";
+            this.pauseIcon.innerHTML = this.getPauseIconMarkup(false);
         }
     }
 

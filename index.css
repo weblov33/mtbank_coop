@@ -2392,6 +2392,408 @@ button {
     }
 }
 
+/* UX cleanup overrides */
+.home-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+
+.home-tab .hero-panel {
+    min-height: clamp(220px, 42vh, 360px);
+    flex: 0 0 auto;
+}
+
+.home-tab .activity-card,
+.home-tab .play-button {
+    flex: 0 0 auto;
+}
+
+.games-card {
+    bottom: 82px;
+}
+
+.tasks-tab .tab-hero {
+    min-height: 150px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.tasks-tab .tab-hero::before {
+    right: -24px;
+    top: -22px;
+    width: 148px;
+    height: 148px;
+    opacity: 0.42;
+}
+
+.tasks-tab .tab-hero__mascot {
+    width: min(34vw, 132px);
+    align-self: center;
+    opacity: 0.92;
+}
+
+.tasks-tab .tab-hero__card {
+    min-height: 78px;
+    padding: 14px;
+    z-index: 2;
+}
+
+.task-list {
+    gap: 18px;
+}
+
+.task-section {
+    display: grid;
+    gap: 10px;
+}
+
+.task-section__header {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+}
+
+.task-section__header > span {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 8px 18px rgba(96, 124, 185, 0.08);
+}
+
+.task-section__header h2,
+.task-section__header p,
+.partner-group h3 {
+    margin: 0;
+}
+
+.task-section__header h2 {
+    font-size: 18px;
+    line-height: 1.1;
+}
+
+.task-section__header p {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.task-section__grid {
+    display: grid;
+    gap: 8px;
+}
+
+.task-card {
+    min-height: 68px;
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 20px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.task-card__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 20px;
+}
+
+.task-card__copy {
+    display: grid;
+    gap: 3px;
+}
+
+.task-card__copy strong {
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+.task-card__copy em {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.25;
+    font-style: normal;
+}
+
+.task-card__state {
+    color: #aeb7cd;
+    font-size: 22px;
+}
+
+.task-card__reward,
+.task-card__arrow {
+    display: none;
+}
+
+.partner-groups {
+    display: grid;
+    gap: 10px;
+}
+
+.partner-group {
+    padding: 12px;
+    border: 1px solid rgba(227, 233, 246, 0.9);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 10px 24px rgba(96, 124, 185, 0.06);
+}
+
+.partner-group h3 {
+    margin-bottom: 9px;
+    color: var(--text);
+    font-size: 15px;
+}
+
+.partner-group__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.task-chip {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #f7faff;
+    color: #52617f;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.task-chip em {
+    color: #aeb7cd;
+    font-style: normal;
+}
+
+.profile-hero {
+    min-height: 270px;
+    align-content: start;
+    padding-bottom: 26px;
+}
+
+.profile-mascot {
+    right: 0;
+    bottom: 72px;
+    width: min(26vw, 120px);
+    opacity: 0.95;
+}
+
+.profile-hero h2,
+.profile-hero p {
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 420px) {
+    .home-tab {
+        gap: 8px;
+    }
+
+    .home-tab .hero-panel {
+        min-height: clamp(190px, 38vh, 300px);
+    }
+
+    .games-card {
+        bottom: 76px;
+    }
+
+    .tasks-tab .tab-hero {
+        min-height: 132px;
+    }
+
+    .tasks-tab .tab-hero::before {
+        right: -34px;
+        top: -26px;
+        width: 132px;
+        height: 132px;
+    }
+
+    .tasks-tab .tab-hero__mascot {
+        width: min(31vw, 112px);
+    }
+
+    .task-list {
+        gap: 16px;
+    }
+
+    .task-section__header h2 {
+        font-size: 16px;
+    }
+
+    .task-card {
+        min-height: 62px;
+        grid-template-columns: 38px minmax(0, 1fr) auto;
+        padding: 9px 10px;
+    }
+
+    .task-card__icon {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+    }
+
+    .profile-hero {
+        min-height: 240px;
+    }
+
+    .profile-mascot {
+        bottom: 68px;
+        width: min(24vw, 98px);
+    }
+}
+
+/* Unified stroke icons for all UI symbols. */
+.hi-icon {
+    width: 22px;
+    height: 22px;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 auto;
+    color: currentColor;
+    line-height: 1;
+}
+
+.hi-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.hi-icon--small {
+    width: 16px;
+    height: 16px;
+}
+
+.hi-icon--tiny {
+    width: 14px;
+    height: 14px;
+}
+
+.hi-icon--inline {
+    width: 16px;
+    height: 16px;
+    display: inline-grid;
+    margin-left: 4px;
+    color: var(--accent);
+    vertical-align: -3px;
+}
+
+.gift-pill__arrow,
+.game-option__arrow,
+.task-card__state,
+.profile-menu button > .hi-icon,
+.profile-section-head button .hi-icon {
+    color: #aeb7cd;
+}
+
+.demo-banner__close,
+.profile-avatar button,
+.profile-section-head button,
+.profile-menu button,
+.task-chip,
+.task-card {
+    align-items: center;
+}
+
+.demo-banner__close {
+    display: grid;
+    place-items: center;
+    font-size: 0;
+}
+
+.tab-hero__icon.hi-icon {
+    width: 34px;
+    height: 34px;
+    color: var(--accent);
+}
+
+.task-section__header > .task-section__svg {
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    color: var(--accent);
+}
+
+.task-card__icon,
+.battle-reward-card__icon,
+.achievement-item > span,
+.profile-stats article > span {
+    font-size: 0;
+    color: var(--accent);
+}
+
+.task-card__icon .hi-icon,
+.task-card__svg {
+    width: 22px;
+    height: 22px;
+}
+
+.battle-reward-card__icon .hi-icon,
+.battle-reward-card__svg {
+    width: 23px;
+    height: 23px;
+}
+
+.achievement-item > span .hi-icon,
+.achievement-item__svg {
+    width: 24px;
+    height: 24px;
+}
+
+.profile-stats article > .hi-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.battle-marker__state .hi-icon {
+    width: 13px;
+    height: 13px;
+}
+
+.task-chip em {
+    display: inline-grid;
+    place-items: center;
+    font-size: 0;
+}
+
+.leaderboard-row em,
+.podium-card strong {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.profile-avatar button {
+    display: grid;
+    place-items: center;
+    font-size: 0;
+}
+
+.profile-section-head button {
+    display: inline-flex;
+    gap: 4px;
+}
+
 @media (max-height: 780px) {
     .home-surface {
         gap: 8px;
@@ -2591,5 +2993,111 @@ button {
         width: 36px;
         height: 36px;
         font-size: 18px;
+    }
+}
+
+/* Last-mile layout fixes for overlap-prone mobile areas. */
+.home-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+
+.home-tab .hero-panel {
+    min-height: clamp(220px, 42vh, 360px);
+    flex: 0 0 auto;
+}
+
+.home-tab .activity-card,
+.home-tab .play-button {
+    flex: 0 0 auto;
+}
+
+.home-tab .games-card {
+    bottom: 82px;
+}
+
+.tasks-tab .tab-hero {
+    min-height: 150px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.tasks-tab .tab-hero::before {
+    right: -24px;
+    top: -22px;
+    width: 148px;
+    height: 148px;
+    opacity: 0.42;
+}
+
+.tasks-tab .tab-hero__mascot {
+    width: min(34vw, 132px);
+    align-self: center;
+    opacity: 0.92;
+}
+
+.tasks-tab .tab-hero__card {
+    min-height: 78px;
+    padding: 14px;
+    z-index: 2;
+}
+
+.profile-hero {
+    min-height: 270px;
+    align-content: start;
+    padding-bottom: 26px;
+}
+
+.profile-mascot {
+    right: 0;
+    bottom: 72px;
+    width: min(26vw, 120px);
+    opacity: 0.95;
+}
+
+.profile-hero h2,
+.profile-hero p {
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 420px) {
+    .home-tab {
+        gap: 8px;
+    }
+
+    .home-tab .hero-panel {
+        min-height: clamp(190px, 38vh, 300px);
+    }
+
+    .home-tab .games-card {
+        bottom: 76px;
+    }
+
+    .tasks-tab .tab-hero {
+        min-height: 132px;
+    }
+
+    .tasks-tab .tab-hero::before {
+        right: -34px;
+        top: -26px;
+        width: 132px;
+        height: 132px;
+    }
+
+    .tasks-tab .tab-hero__mascot {
+        width: min(31vw, 112px);
+    }
+
+    .profile-hero {
+        min-height: 240px;
+    }
+
+    .profile-mascot {
+        bottom: 68px;
+        width: min(24vw, 98px);
     }
 }

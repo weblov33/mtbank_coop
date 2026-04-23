@@ -10,32 +10,33 @@
     <body>
         <main class="app-shell">
             <section class="game-card">
-                <section class="stats-grid" aria-label="Статистика игры">
-                    <article class="stat-card">
-                        <div class="stat-icon-wrap">
-                            <img class="stat-icon" src="../../assets_home/огонек.svg" alt="" aria-hidden="true">
-                        </div>
-                        <strong class="stat-value" id="bestScoreValue">0</strong>
-                        <span class="stat-label">Рекорд</span>
-                    </article>
-
-                    <article class="stat-card stat-card--score">
-                        <strong class="stat-value stat-value--primary" id="scoreValue">0</strong>
-                        <span class="stat-label">Очки</span>
-                    </article>
-
-                    <article class="stat-card">
-                        <div class="stat-icon-wrap">
-                            <img class="stat-icon" src="../../assets_home/молния.svg" alt="" aria-hidden="true">
-                        </div>
-                        <strong class="stat-value">+0</strong>
-                        <span class="stat-label">Молнии</span>
-                    </article>
-                </section>
-
                 <section class="board-panel">
                     <canvas id="board" aria-label="Flappy Bird game board"></canvas>
                     <button class="board-tap-layer" type="button" id="tapLayer" aria-label="Tap to flap"></button>
+
+                    <section class="stats-grid" aria-label="Статистика игры">
+                        <article class="stat-card">
+                            <div class="stat-pill">
+                                <img class="stat-icon" src="../../assets_home/огонек.svg" alt="" aria-hidden="true">
+                                <strong class="stat-value" id="bestScoreValue">12</strong>
+                            </div>
+                            <span class="stat-label">Серия</span>
+                        </article>
+
+                        <article class="stat-card stat-card--score">
+                            <strong class="stat-value stat-value--primary" id="scoreValue">0</strong>
+                            <span class="stat-label">Очки</span>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-pill">
+                                <img class="stat-icon" src="../../assets_home/молния.svg" alt="" aria-hidden="true">
+                                <strong class="stat-value" id="lightningValue">+0</strong>
+                            </div>
+                            <span class="stat-label">Молнии</span>
+                        </article>
+                    </section>
+
                     <div class="board-overlay" id="gameOverlay">
                         <div class="overlay-content">
                             <p class="overlay-title" id="overlayTitle">Готовы</p>
@@ -43,18 +44,30 @@
                             <button class="primary-button" type="button" id="startButton">Старт</button>
                         </div>
                     </div>
+
+                    <footer class="control-bar">
+                        <button class="control-back" type="button" id="backButton" aria-label="Назад">
+                            <span class="control-icon">
+                                <svg viewBox="0 0 24 24" role="presentation">
+                                    <path d="M14.7 5.3a1 1 0 0 1 0 1.4L10.41 11H20a1 1 0 1 1 0 2h-9.59l4.29 4.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0Z"/>
+                                </svg>
+                            </span>
+                        </button>
+
+                        <div class="control-hint" aria-hidden="true">
+                            <span class="control-copy">Нажмите,<br>чтобы взлететь</span>
+                        </div>
+
+                        <button class="secondary-button" type="button" id="pauseButton" aria-label="Пауза">
+                            <span class="secondary-button__icon" id="pauseIcon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" role="presentation">
+                                    <rect x="6" y="4.5" width="4" height="15" rx="1.8"></rect>
+                                    <rect x="14" y="4.5" width="4" height="15" rx="1.8"></rect>
+                                </svg>
+                            </span>
+                        </button>
+                    </footer>
                 </section>
-
-                <footer class="control-bar">
-                    <div class="control-hint" aria-hidden="true">
-                        <span class="control-icon">↑</span>
-                        <span class="control-copy">Касание = взлет</span>
-                    </div>
-
-                    <button class="secondary-button" type="button" id="restartButton" aria-label="Перезапустить игру">
-                        ↻
-                    </button>
-                </footer>
             </section>
         </main>
     </body>

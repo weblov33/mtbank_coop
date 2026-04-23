@@ -67,36 +67,38 @@ canvas,
 }
 
 .game-card {
-    width: min(100%, 620px);
+    width: 100%;
     height: 100%;
-    margin: 0 auto;
     display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    gap: 10px;
+    grid-template-rows: minmax(0, 1fr);
 }
 
-.stats-grid,
 .stat-card,
 .control-bar,
 .board-overlay,
 .primary-button,
-.secondary-button,
-.control-icon {
+.secondary-button {
     border: 1px solid var(--line);
     background: var(--surface);
     box-shadow: var(--shadow-soft);
 }
 
 .stats-grid {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    right: 16px;
+    z-index: 4;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
+    gap: 8px;
+    pointer-events: none;
 }
 
 .stat-card {
-    min-height: 82px;
-    padding: 12px 10px;
-    border-radius: 22px;
+    min-height: 58px;
+    padding: 8px 10px 7px;
+    border-radius: 20px;
     display: grid;
     justify-items: center;
     align-content: center;
@@ -109,21 +111,21 @@ canvas,
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 250, 255, 0.9));
 }
 
-.stat-icon-wrap {
-    width: 24px;
-    height: 24px;
-    display: grid;
-    place-items: center;
+.stat-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
 }
 
 .stat-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     object-fit: contain;
 }
 
 .stat-value {
-    font-size: clamp(22px, 4.6vw, 32px);
+    font-size: clamp(18px, 3.6vw, 28px);
     line-height: 1;
     font-weight: 600;
     letter-spacing: -0.03em;
@@ -131,11 +133,11 @@ canvas,
 }
 
 .stat-value--primary {
-    font-size: clamp(26px, 5vw, 40px);
+    font-size: clamp(22px, 4.4vw, 34px);
 }
 
 .stat-label {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 1.2;
     color: var(--muted);
 }
@@ -144,13 +146,10 @@ canvas,
     position: relative;
     min-height: 0;
     overflow: hidden;
+    border: 0;
     border-radius: 30px;
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04)),
-        rgba(239, 246, 255, 0.56);
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.34),
-        var(--shadow);
+    background: transparent;
+    box-shadow: none;
 }
 
 .board-panel::before,
@@ -161,21 +160,9 @@ canvas,
     pointer-events: none;
 }
 
-.board-panel::before {
-    z-index: 1;
-    background:
-        radial-gradient(circle at 14% 30%, rgba(255, 255, 255, 0.9) 0, rgba(255, 255, 255, 0) 9%),
-        radial-gradient(circle at 33% 58%, rgba(255, 255, 255, 0.64) 0, rgba(255, 255, 255, 0) 1.1%),
-        radial-gradient(circle at 72% 40%, rgba(255, 255, 255, 0.7) 0, rgba(255, 255, 255, 0) 1.2%),
-        radial-gradient(circle at 58% 70%, rgba(255, 255, 255, 0.68) 0, rgba(255, 255, 255, 0) 1%);
-    opacity: 0.72;
-}
-
+.board-panel::before,
 .board-panel::after {
-    z-index: 2;
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 20%),
-        linear-gradient(0deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 18%);
+    display: none;
 }
 
 #board,
@@ -188,6 +175,7 @@ canvas,
 
 #board {
     display: block;
+    border-radius: inherit;
     background-image: url("./flappy-bg.webp");
     background-size: cover;
     background-position: center;
@@ -202,7 +190,7 @@ canvas,
 .board-overlay {
     position: absolute;
     left: 50%;
-    bottom: 14px;
+    bottom: 104px;
     z-index: 5;
     transform: translateX(-50%);
     width: calc(100% - 28px);
@@ -255,27 +243,25 @@ canvas,
 }
 
 .control-bar {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 4;
     min-height: 74px;
     border-radius: 26px;
     padding: 10px 12px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: 10px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(244, 248, 255, 0.88));
     box-shadow: var(--shadow);
 }
 
-.control-hint {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    gap: 10px;
-    min-width: 0;
-}
-
 .control-icon,
-.secondary-button {
+.secondary-button,
+.control-back {
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -286,21 +272,51 @@ canvas,
 }
 
 .control-icon {
-    font-size: 24px;
+    display: grid;
+    place-items: center;
+}
+
+.control-back {
+    display: grid;
+    place-items: center;
+}
+
+.control-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+
+.control-icon svg,
+.secondary-button__icon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+    fill: var(--accent);
+}
+
+.control-back .control-icon {
+    width: auto;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
 }
 
 .control-copy {
-    font-size: 13px;
+    font-size: 15px;
     color: #667892;
+    text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: 500;
 }
 
 .secondary-button {
     justify-self: end;
-    font-size: 22px;
-    line-height: 1;
 }
 
 @media (max-width: 480px) {
@@ -313,17 +329,32 @@ canvas,
     }
 
     .game-card {
-        gap: 8px;
+        gap: 0;
     }
 
     .stats-grid {
+        top: 12px;
+        left: 12px;
+        right: 12px;
         gap: 8px;
     }
 
     .stat-card {
-        min-height: 76px;
-        border-radius: 20px;
-        padding: 10px 8px;
+        min-height: 54px;
+        border-radius: 18px;
+        padding: 8px 8px 7px;
+    }
+
+    .stat-value {
+        font-size: 17px;
+    }
+
+    .stat-value--primary {
+        font-size: 20px;
+    }
+
+    .stat-label {
+        font-size: 9px;
     }
 
     .board-panel {
@@ -332,13 +363,17 @@ canvas,
 
     .board-overlay {
         width: calc(100% - 20px);
-        bottom: 10px;
+        bottom: 84px;
         padding: 12px 14px;
     }
 
     .control-bar {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
         min-height: 68px;
         border-radius: 24px;
         padding: 9px 10px;
     }
+
 }

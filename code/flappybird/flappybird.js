@@ -1,7 +1,7 @@
 const BOARD_WIDTH = 360;
 const BOARD_HEIGHT = 640;
-const BIRD_WIDTH = 42;
-const BIRD_HEIGHT = 30;
+const BIRD_WIDTH = 66;
+const BIRD_HEIGHT = 52;
 const PIPE_WIDTH = 64;
 const PIPE_HEIGHT = 512;
 const PIPE_INTERVAL_MS = 1500;
@@ -12,8 +12,7 @@ const MAX_FALL_SPEED = 7.2;
 const PIPE_GAP = 168;
 const BIRD_HITBOX_SCALE = 0.82;
 const STORAGE_KEY = "mtbank-flappybird-best";
-const BIRD_RENDER_SCALE_X = 1.34;
-const BIRD_RENDER_SCALE_Y = 1.08;
+const BIRD_RENDER_SCALE = 1.22;
 
 class FlappyBirdGame {
     constructor() {
@@ -24,8 +23,11 @@ class FlappyBirdGame {
         this.overlayText = document.getElementById("overlayText");
         this.scoreValue = document.getElementById("scoreValue");
         this.bestScoreValue = document.getElementById("bestScoreValue");
+        this.lightningValue = document.getElementById("lightningValue");
         this.startButton = document.getElementById("startButton");
-        this.restartButton = document.getElementById("restartButton");
+        this.pauseButton = document.getElementById("pauseButton");
+        this.pauseIcon = document.getElementById("pauseIcon");
+        this.backButton = document.getElementById("backButton");
         this.tapLayer = document.getElementById("tapLayer");
         this.deviceScale = Math.max(window.devicePixelRatio || 1, 1);
 
@@ -47,6 +49,7 @@ class FlappyBirdGame {
         this.pipeTimer = null;
         this.bestScore = this.loadBestScore();
         this.lastFrameTime = 0;
+        this.paused = false;
 
         this.bindEvents();
         this.reset();
@@ -62,9 +65,30 @@ class FlappyBirdGame {
             this.start();
         });
 
-        this.restartButton.addEventListener("click", () => {
-            this.reset();
-            this.start();
+        this.pauseButton.addEventListener("click", () => {
+            if (this.gameOver) {
+                this.reset();
+                this.start();
+                return;
+            }
+
+            if (!this.gameStarted) {
+                this.start();
+                return;
+            }
+
+            if (this.paused) {
+                this.resume();
+                return;
+            }
+
+            this.pause();
+        });
+
+        this.backButton.addEventListener("click", () => {
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type: "mtbank:close-game" }, "*");
+            }
         });
 
         const handleTap = (event) => {
@@ -92,8 +116,8 @@ class FlappyBirdGame {
         });
 
         document.addEventListener("visibilitychange", () => {
-            if (document.hidden && this.gameStarted && !this.gameOver) {
-                this.finish("Игра окончена. Нажмите старт, чтобы попробовать снова.");
+            if (document.hidden && this.gameStarted && !this.gameOver && !this.paused) {
+                this.pause();
             }
         });
     }
@@ -120,6 +144,7 @@ class FlappyBirdGame {
         this.score = 0;
         this.gameStarted = false;
         this.gameOver = false;
+        this.paused = false;
         this.updateHud();
 
         if (this.animationFrame) {
@@ -137,12 +162,13 @@ class FlappyBirdGame {
     }
 
     start() {
-        if (this.gameStarted && !this.gameOver) {
+        if ((this.gameStarted && !this.gameOver) || this.paused) {
             return;
         }
 
         this.gameStarted = true;
         this.gameOver = false;
+        this.paused = false;
         this.lastFrameTime = performance.now();
         this.hideOverlay();
         this.flap(true);
@@ -158,6 +184,11 @@ class FlappyBirdGame {
         if (this.gameOver) {
             this.reset();
             this.start();
+            return;
+        }
+
+        if (this.paused) {
+            this.resume();
             return;
         }
 
@@ -201,7 +232,7 @@ class FlappyBirdGame {
     }
 
     update(now) {
-        if (!this.gameStarted || this.gameOver) {
+        if (!this.gameStarted || this.gameOver || this.paused) {
             this.animationFrame = null;
             this.render();
             return;
@@ -249,6 +280,7 @@ class FlappyBirdGame {
     finish(message) {
         this.gameOver = true;
         this.gameStarted = false;
+        this.paused = false;
         this.bestScore = Math.max(this.bestScore, Math.floor(this.score));
         this.saveBestScore();
         this.updateHud();
@@ -260,9 +292,44 @@ class FlappyBirdGame {
         }
     }
 
+    pause() {
+        this.paused = true;
+        this.gameStarted = false;
+        this.showOverlay("Пауза", "Коснитесь, чтобы продолжить");
+        this.updateHud();
+
+        if (this.pipeTimer) {
+            clearInterval(this.pipeTimer);
+            this.pipeTimer = null;
+        }
+    }
+
+    resume() {
+        if (!this.paused || this.gameOver) {
+            return;
+        }
+
+        this.paused = false;
+        this.gameStarted = true;
+        this.lastFrameTime = performance.now();
+        this.hideOverlay();
+        if (!this.pipeTimer) {
+            this.pipeTimer = setInterval(() => this.placePipes(), PIPE_INTERVAL_MS);
+        }
+        if (!this.animationFrame) {
+            this.update(this.lastFrameTime);
+        }
+        this.updateHud();
+    }
+
     updateHud() {
         this.scoreValue.textContent = String(Math.floor(this.score));
         this.bestScoreValue.textContent = String(this.bestScore);
+        this.lightningValue.textContent = `+${Math.floor(this.score / 5)}`;
+        this.pauseButton.setAttribute("aria-label", this.paused ? "Продолжить" : "Пауза");
+        this.pauseIcon.innerHTML = this.paused
+            ? `<svg viewBox="0 0 24 24" role="presentation"><path d="M8 5.4c0-.8.9-1.28 1.58-.82l8.24 5.6c.6.4.6 1.28 0 1.68l-8.24 5.6A1 1 0 0 1 8 16.6V5.4Z"></path></svg>`
+            : `<svg viewBox="0 0 24 24" role="presentation"><rect x="6" y="4.5" width="4" height="15" rx="1.8"></rect><rect x="14" y="4.5" width="4" height="15" rx="1.8"></rect></svg>`;
     }
 
     detectCollision(a, b) {
@@ -312,8 +379,11 @@ class FlappyBirdGame {
             this.context.drawImage(this.pipeSprite, pipe.x, pipe.y, pipe.width, pipe.height);
         }
 
-        const renderBirdWidth = this.bird.width * BIRD_RENDER_SCALE_X;
-        const renderBirdHeight = this.bird.height * BIRD_RENDER_SCALE_Y;
+        const spriteWidth = this.birdSprite.naturalWidth || this.bird.width;
+        const spriteHeight = this.birdSprite.naturalHeight || this.bird.height;
+        const spriteRatio = spriteWidth / spriteHeight;
+        const renderBirdHeight = this.bird.height * BIRD_RENDER_SCALE;
+        const renderBirdWidth = renderBirdHeight * spriteRatio;
         const renderBirdX = this.bird.x - (renderBirdWidth - this.bird.width) / 2;
         const renderBirdY = this.bird.y - (renderBirdHeight - this.bird.height) / 2;
 
